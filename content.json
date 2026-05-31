@@ -1,0 +1,225 @@
+{
+  "contact": {
+    "phone": "(407) 972-1262",
+    "phoneTel": "4079721262",
+    "email": "info@honestwaternfl.com",
+    "hours": "Mon–Sat: 8am – 6pm<br>Sun: By appointment",
+    "address": "411 W 1st Street, #1061<br>Sanford, FL 32771"
+  },
+  "hero": {
+    "badge": "Official Honest Water Co — North Florida",
+    "line1": "Clean, Soft Water",
+    "line2": "for Every",
+    "accent": "Florida",
+    "line3": "Home",
+    "subtitle": "Is hard water damaging your appliances, drying out your skin, and leaving mineral stains everywhere? We solve it — permanently — with NSF-certified systems backed by a lifetime warranty.",
+    "painPoints": [
+      "Dry, itchy skin after every shower",
+      "Spotty dishes & mineral-stained fixtures",
+      "Chlorine smell in your tap water",
+      "Hard water destroying your appliances"
+    ],
+    "cta1": "Get a Quote",
+    "cta2": "View Solutions →"
+  },
+  "pricing": {
+    "cardTitle": "Complete Home System",
+    "cardSubtitle": "Our Best-Selling Package",
+    "cardPriceOld": "$4,599",
+    "cardPrice": "$2,995",
+    "cardSave": "Save up to 40% — Limited Time",
+    "cardFeatures": [
+      "Whole-home softener + carbon filtration",
+      "NSF-certified resin & polishing gravel",
+      "Removes hardness, chlorine & contaminants",
+      "Professional installation included",
+      "Lifetime warranty on system & media bed"
+    ],
+    "cardBadgeText": "1,000+ successful installs nationally"
+  },
+  "trust": [
+    {
+      "icon": "🛡️",
+      "title": "Lifetime Warranty",
+      "desc": "Clean water for life, guaranteed"
+    },
+    {
+      "icon": "🔧",
+      "title": "Free Installation",
+      "desc": "Professional install included"
+    },
+    {
+      "icon": "⭐",
+      "title": "100+ 5-Star Reviews",
+      "desc": "Trusted by Florida families"
+    },
+    {
+      "icon": "✅",
+      "title": "BBB Accredited",
+      "desc": "Family-owned Florida business"
+    }
+  ],
+  "build": {
+    "label": "Best Seller",
+    "title": "How We Build Our Most Popular System",
+    "desc": "Remove Hardness, Chlorine, and Countless other Contaminants Every Time, Honestly.",
+    "priceOld": "$4,599",
+    "priceNew": "$2,995",
+    "priceTag": "🏆 Complete Home System Package",
+    "features": [
+      "14 lbs NSF Certified polishing gravel for superior filtration",
+      "50 lbs 10% food grade NSF certified softening resin (USA-sourced)",
+      "14 lbs naturally sourced NSF certified granular activated carbon",
+      "Professional installation by certified technicians",
+      "Lifetime warranty on all components"
+    ],
+    "cta": "Get This System"
+  },
+  "story": {
+    "label": "Our Story",
+    "title": "Family-Owned, Florida-Proud",
+    "body1": "Founded in 2021, Honest Water Co was built on a single promise: deliver the best water quality at the most honest price. We saw too many families overpaying for inferior systems or being sold products they didn't need.",
+    "body2": "We're a family-owned business dedicated to providing Florida homes with the highest quality water filtration systems. Our commitment to health, wellness, and sustainability drives everything we do — from the NSF-certified materials we use to the way we treat every customer like a neighbor.",
+    "cta": "Talk to Our Team",
+    "stats": [
+      {
+        "num": "1,000+",
+        "label": "Successful Installations"
+      },
+      {
+        "num": "4",
+        "label": "Florida Counties Served"
+      },
+      {
+        "num": "100+",
+        "label": "5-Star Reviews"
+      },
+      {
+        "num": "2021",
+        "label": "Est. Sanford, FL"
+      }
+    ]
+  },
+  "serviceAreas": {
+    "label": "Where We Serve",
+    "title": "Serving North & Central Florida",
+    "desc": "We provide water filtration and installation services across the greater Orlando and North Florida region, with same-week appointments available.",
+    "areas": [
+      {
+        "name": "Seminole County",
+        "cities": "Sanford, Altamonte Springs, Casselberry, Lake Mary, Longwood, Oviedo, Winter Springs"
+      },
+      {
+        "name": "Orange County",
+        "cities": "Orlando, Apopka, Winter Garden, Ocoee, Winter Park, Windermere, Maitland"
+      },
+      {
+        "name": "Volusia County",
+        "cities": "Daytona Beach, DeLand, Deltona, Ormond Beach, Port Orange, New Smyrna"
+      },
+      {
+        "name": "Lake County",
+        "cities": "Leesburg, Clermont, Eustis, Tavares, Mount Dora, Lady Lake, Fruitland Park"
+      }
+    ]
+  },
+  "testimonials": [
+    {
+      "name": "Sarah M.",
+      "location": "Sanford, FL",
+      "initials": "SM",
+      "rating": 5,
+      "text": "Our water used to leave white residue everywhere — sinks, showers, the coffee maker. Within a week of installation, everything was crystal clear. The team was professional, fast, and explained everything. Best investment we've made for our home."
+    },
+    {
+      "name": "Robert J.",
+      "location": "Orlando, FL",
+      "initials": "RJ",
+      "rating": 5,
+      "text": "I was skeptical at first but the difference is night and day. My skin doesn't feel dry anymore, the dishes come out spotless, and the water just tastes clean. Installation was done in under 3 hours. Honest Water Co earned a customer for life."
+    },
+    {
+      "name": "Linda K.",
+      "location": "Lake Mary, FL",
+      "initials": "LK",
+      "rating": 5,
+      "text": "We've had our system for 8 months and it's been flawless. Our water heater is running more efficiently, soap lathers way better, and we stopped buying bottled water entirely. The lifetime warranty gave us total peace of mind. Highly recommend!"
+    },
+    {
+      "name": "Jane D.",
+      "location": "Lake Mary, FL",
+      "initials": "JD",
+      "rating": 5,
+      "text": "Incredible results. Our water has never been cleaner!"
+    }
+  ],
+  "faqs": [
+    {
+      "question": "What is a whole-home water filtration system?",
+      "answer": "A whole-home water filtration system filters the water at the main point of entry, ensuring clean, filtered water is available throughout your entire home for drinking, cooking, bathing, and cleaning."
+    },
+    {
+      "question": "How does reverse osmosis work?",
+      "answer": "Reverse osmosis pushes water through a semi-permeable membrane that removes up to 99% of contaminants including heavy metals, chemicals, bacteria, and dissolved solids — leaving you with pure, great-tasting water."
+    },
+    {
+      "question": "How often should I replace the filters?",
+      "answer": "Filter replacement schedules vary by system and usage, but most whole-home systems require maintenance every 6–12 months. Our team will walk you through the specific schedule for your system at installation."
+    },
+    {
+      "question": "Why should I choose a water filtration system for my home?",
+      "answer": "Filtered water protects your family's health, extends the life of appliances, makes skin and hair softer, and eliminates the cost and waste of bottled water. Florida's water is notorious for hardness, chlorine, and contaminants — filtration is essential."
+    },
+    {
+      "question": "What contaminants does your filtration system remove?",
+      "answer": "Our systems remove chlorine, chloramines, lead, arsenic, nitrates, bacteria, hard minerals (calcium, magnesium), sediment, VOCs, and hundreds of other contaminants — all certified by NSF standards."
+    },
+    {
+      "question": "Will the filtration system affect my water pressure?",
+      "answer": "No. Our systems are engineered to maintain your home's normal water pressure. In many cases, removing sediment and buildup actually improves pressure throughout your plumbing."
+    },
+    {
+      "question": "Do you serve Sanford FL?",
+      "answer": "Yes, Sanford is our home base in Seminole County."
+    }
+  ],
+  "blog": [
+    {
+      "category": "Water Safety",
+      "title": "The Importance of Water Filtration in Texas Homes",
+      "date": "Nov 14, 2025",
+      "image": "https://honestwaterco.com/wp-content/uploads/2025/11/68d5aa90d66dcf6c533e5990_Untitled-design-81-1024x1024.png"
+    },
+    {
+      "category": "Clean Living",
+      "title": "5 Signs You Need a Home Water Filtration System",
+      "date": "Nov 14, 2025",
+      "image": "https://honestwaterco.com/wp-content/uploads/2025/11/66dc102894e5c39337ac4c3b_Artboard.webp"
+    },
+    {
+      "category": "Clean Living",
+      "title": "How Water Quality Affects Your Skin and Hair",
+      "date": "Nov 14, 2025",
+      "image": "https://honestwaterco.com/wp-content/uploads/2025/11/68d5aa90d66dcf6c533e5990_Untitled-design-81-1.png"
+    }
+  ],
+  "cta": {
+    "title": "Ready to Enjoy Clean Water?",
+    "desc": "Reach out to our team and we'll get back to you within 24 hours with a free, no-obligation quote.",
+    "btnPhone": "📞 (407) 972-1262",
+    "btnEmail": "Email Us"
+  },
+  "footer": {
+    "about": "Founded on the promise of purity, Honest Water Co is a family-owned business dedicated to providing Florida homes with the highest quality water filtration systems. Our commitment to health, wellness, and sustainability drives us to deliver clean, safe water you can trust.",
+    "copyright": "© 2026 Best Water Co, Inc. dba Honest Water Co - North Florida. Official Honest Water Co Dealer. All rights reserved.",
+    "location": "Sanford, FL 32771 · North Florida",
+    "socialFacebook": "https://facebook.com",
+    "socialTiktok": "https://tiktok.com",
+    "socialInstagram": "https://instagram.com"
+  },
+  "colors": {
+    "navy": "#0a1628",
+    "teal": "#00c2b8",
+    "accent": "#00c2b8"
+  }
+}

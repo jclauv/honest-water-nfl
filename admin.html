@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HWC NF &#8212; Admin</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --wp-sidebar:#23282d;
+  --wp-sidebar-item:#32373c;
+  --wp-sidebar-hover:#191e23;
+  --wp-sidebar-active:#0073aa;
+  --wp-sidebar-text:#eee;
+  --wp-sidebar-muted:#a0a5aa;
+  --wp-topbar:#23282d;
+  --wp-blue:#0073aa;
+  --wp-blue-hover:#006799;
+  --wp-blue-light:#e5f5fa;
+  --wp-body:#f0f0f1;
+  --wp-white:#fff;
+  --wp-border:#c3c4c7;
+  --wp-border-light:#dcdcde;
+  --wp-text:#1d2327;
+  --wp-text-muted:#646970;
+  --wp-red:#d63638;
+  --wp-green:#00a32a;
+  --wp-orange:#d67706;
+  --radius:4px;
+}
+html,body{height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,sans-serif;background:var(--wp-body);color:var(--wp-text);font-size:13px}
+
+/* ── TOPBAR ── */
+#wpadminbar{position:fixed;top:0;left:0;right:0;height:32px;background:var(--wp-topbar);z-index:99;display:flex;align-items:center;justify-content:space-between;padding:0 0 0 160px}
+#wpadminbar.login-bar{padding-left:12px}
+.ab-left{display:flex;align-items:center;gap:16px}
+.ab-site{color:#eee;font-size:13px;font-weight:600;padding:0 10px;height:32px;display:flex;align-items:center;gap:6px}
+.ab-site:hover{background:rgba(255,255,255,0.1)}
+.ab-site span{color:var(--wp-sidebar-muted);font-weight:400;font-size:12px}
+.ab-right{display:flex;align-items:center;gap:6px;padding-right:12px}
+.ab-user{color:#eee;font-size:12px;display:flex;align-items:center;gap:6px}
+.ab-avatar{width:22px;height:22px;border-radius:50%;background:var(--wp-blue);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff}
+.ab-logout{color:var(--wp-sidebar-muted);font-size:11px;cursor:pointer;padding:4px 8px;border-radius:3px;border:1px solid rgba(255,255,255,0.15);background:none;display:flex;align-items:center;gap:4px}
+.ab-logout:hover{color:#fff;border-color:rgba(255,255,255,0.4)}
+
+/* ── LOGIN ── */
+#loginScreen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--wp-body);padding-top:32px}
+.login-wrap{width:320px}
+.login-logo{text-align:center;margin-bottom:24px}
+.login-logo img{max-width:220px;height:auto}
+.login-logo-text{font-size:1.3rem;font-weight:700;color:var(--wp-text)}
+#loginform{background:var(--wp-white);border:1px solid var(--wp-border);border-radius:var(--radius);padding:26px;box-shadow:0 1px 3px rgba(0,0,0,0.08)}
+#loginform h1{font-size:1.1rem;font-weight:600;margin-bottom:18px;color:var(--wp-text)}
+.wp-label{display:block;font-size:12px;font-weight:600;color:var(--wp-text);margin-bottom:5px}
+.wp-input{width:100%;border:1px solid var(--wp-border);border-radius:var(--radius);padding:8px 10px;font-size:14px;color:var(--wp-text);background:#fff;box-shadow:inset 0 1px 2px rgba(0,0,0,0.07);outline:none;margin-bottom:14px;font-family:inherit}
+.wp-input:focus{border-color:var(--wp-blue);box-shadow:0 0 0 1px var(--wp-blue),inset 0 1px 2px rgba(0,0,0,0.07)}
+.wp-btn{display:inline-flex;align-items:center;gap:6px;padding:0 14px;height:32px;border-radius:var(--radius);font-size:13px;font-weight:600;cursor:pointer;border:1px solid;font-family:inherit;transition:all 0.15s;text-decoration:none}
+.btn-primary{background:var(--wp-blue);color:#fff;border-color:var(--wp-blue-hover)}
+.btn-primary:hover{background:var(--wp-blue-hover)}
+.btn-primary.full{width:100%;justify-content:center;height:36px;font-size:14px}
+.btn-secondary{background:#f6f7f7;color:var(--wp-text);border-color:var(--wp-border)}
+.btn-secondary:hover{background:#f0f0f1;border-color:var(--wp-text-muted)}
+.btn-danger{background:#fff;color:var(--wp-red);border-color:var(--wp-red)}
+.btn-danger:hover{background:var(--wp-red);color:#fff}
+.btn-link{background:none;border:none;color:var(--wp-blue);cursor:pointer;padding:0;font-size:13px;font-family:inherit;text-decoration:underline}
+.btn-link:hover{color:var(--wp-blue-hover)}
+.login-err{color:var(--wp-red);font-size:12px;margin-top:10px;padding:8px 12px;background:#fef7f7;border:1px solid #f5c2c2;border-radius:var(--radius);display:none}
+.login-footer{text-align:center;margin-top:16px;color:var(--wp-text-muted);font-size:12px}
+
+/* ── APP SHELL ── */
+#app{display:none;padding-top:32px;min-height:100vh}
+#adminmenu{position:fixed;top:32px;left:0;bottom:0;width:160px;background:var(--wp-sidebar);overflow-y:auto;z-index:50}
+.menu-logo{padding:14px 12px 10px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:6px}
+.menu-logo img{max-width:130px;height:auto;display:block;margin:0 auto}
+.menu-logo-text{color:#eee;font-size:0.85rem;font-weight:700;text-align:center;padding:8px 12px 10px}
+#adminmenu ul{list-style:none;padding:0}
+#adminmenu li a, #adminmenu li button{display:flex;align-items:center;gap:9px;width:100%;padding:8px 12px;color:var(--wp-sidebar-muted);font-size:13px;font-weight:400;border:none;background:none;cursor:pointer;font-family:inherit;text-align:left;text-decoration:none;border-left:3px solid transparent;transition:background 0.1s}
+#adminmenu li a:hover, #adminmenu li button:hover{background:var(--wp-sidebar-hover);color:#eee}
+#adminmenu li.current a, #adminmenu li.current button{background:var(--wp-sidebar-hover);color:#fff;border-left-color:var(--wp-blue)}
+#adminmenu .menu-icon{font-size:15px;width:18px;text-align:center;flex-shrink:0}
+.menu-sep{height:1px;background:rgba(255,255,255,0.07);margin:8px 0}
+.menu-section-label{padding:10px 12px 3px;font-size:10px;text-transform:uppercase;letter-spacing:1px;color:rgba(160,165,170,0.6)}
+.menu-bottom{padding:12px;border-top:1px solid rgba(255,255,255,0.07)}
+.menu-bottom a{display:flex;align-items:center;gap:8px;padding:8px 10px;background:rgba(255,255,255,0.06);border-radius:var(--radius);color:var(--wp-sidebar-muted);font-size:12px;margin-bottom:6px;text-decoration:none;border:1px solid rgba(255,255,255,0.1)}
+.menu-bottom a:hover{background:rgba(255,255,255,0.1);color:#eee}
+
+/* ── MAIN CONTENT ── */
+#wpcontent{margin-left:160px;padding:20px 20px 40px}
+.wp-heading-inline{font-size:1.7rem;font-weight:400;color:var(--wp-text);line-height:1;margin:0 0 2px}
+.wrap{max-width:1100px}
+.page-title-action{display:inline-flex;align-items:center;gap:5px;margin-left:8px;padding:4px 10px;border:1px solid var(--wp-blue);border-radius:var(--radius);color:var(--wp-blue);font-size:13px;cursor:pointer;background:#fff;font-family:inherit;vertical-align:middle;text-decoration:none}
+.page-title-action:hover{background:var(--wp-blue);color:#fff}
+.subsubsub{color:var(--wp-text-muted);margin:8px 0 16px;font-size:13px}
+.notice{padding:10px 14px;border-left:4px solid var(--wp-green);background:#fff;border-radius:0 var(--radius) var(--radius) 0;margin-bottom:16px;font-size:13px;display:none}
+.notice.notice-success{border-color:var(--wp-green)}
+.notice.notice-error{border-color:var(--wp-red)}
+
+/* ── METABOXES / CARDS ── */
+.postbox{background:var(--wp-white);border:1px solid var(--wp-border-light);border-radius:var(--radius);margin-bottom:20px;box-shadow:0 1px 1px rgba(0,0,0,0.04)}
+.postbox-header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--wp-border-light);padding:8px 14px}
+.postbox-header h2{font-size:13px;font-weight:600;color:var(--wp-text);text-transform:uppercase;letter-spacing:0.3px}
+.inside{padding:14px 16px}
+
+/* ── FORM TABLE ── */
+.form-table{width:100%;border-collapse:collapse}
+.form-table th{width:200px;padding:12px 10px 12px 0;vertical-align:top;font-weight:600;color:var(--wp-text);font-size:13px;text-align:left}
+.form-table td{padding:8px 0 8px 10px;vertical-align:top}
+.form-table .regular-text{width:100%;max-width:420px}
+.form-table .large-text{width:100%;max-width:600px}
+.regular-text,.large-text,.wp-input{border:1px solid var(--wp-border);border-radius:var(--radius);padding:6px 9px;font-size:14px;color:var(--wp-text);background:#fff;box-shadow:inset 0 1px 2px rgba(0,0,0,0.07);outline:none;font-family:inherit}
+.regular-text:focus,.large-text:focus,.wp-input:focus{border-color:var(--wp-blue);box-shadow:0 0 0 1px var(--wp-blue),inset 0 1px 2px rgba(0,0,0,0.07)}
+textarea.large-text{min-height:80px;resize:vertical;line-height:1.5}
+.description{color:var(--wp-text-muted);font-size:12px;margin-top:4px}
+input[type=color]{height:30px;width:50px;padding:2px;border:1px solid var(--wp-border);border-radius:var(--radius);cursor:pointer}
+
+/* ── SUBMIT BOX ── */
+.submit-box{padding:14px 16px;background:#f6f7f7;border-top:1px solid var(--wp-border-light);display:flex;align-items:center;gap:10px;border-radius:0 0 var(--radius) var(--radius)}
+.submit-box .spinner{width:20px;height:20px;border:2px solid var(--wp-border);border-top-color:var(--wp-blue);border-radius:50%;animation:spin .7s linear infinite;display:none}
+.submit-box .spinner.active{display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── PANELS ── */
+.panel{display:none}
+.panel.active{display:block}
+
+/* ── LIST TABLE (WordPress style) ── */
+.wp-list-table{width:100%;border-collapse:collapse;border:1px solid var(--wp-border-light);background:var(--wp-white)}
+.wp-list-table thead th,.wp-list-table tfoot th{background:#f6f7f7;border-bottom:1px solid var(--wp-border-light);padding:8px 10px;text-align:left;font-weight:600;font-size:13px;color:var(--wp-text)}
+.wp-list-table tbody tr{border-bottom:1px solid var(--wp-border-light)}
+.wp-list-table tbody tr:last-child{border-bottom:none}
+.wp-list-table tbody tr:nth-child(even){background:#f9f9f9}
+.wp-list-table tbody td{padding:10px;vertical-align:top;font-size:13px}
+.wp-list-table .row-actions{font-size:11px;color:var(--wp-text-muted);margin-top:4px}
+.wp-list-table .row-actions span{margin-right:6px}
+.wp-list-table .row-actions a{color:var(--wp-blue);text-decoration:none;cursor:pointer}
+.wp-list-table .row-actions .trash{color:var(--wp-red)}
+.col-name{font-weight:600;color:var(--wp-text)}
+.col-preview{color:var(--wp-text-muted);font-size:12px;margin-top:2px;max-width:380px}
+.col-meta{font-size:12px;color:var(--wp-text-muted)}
+.col-actions{width:100px;white-space:nowrap}
+
+/* ── TAG LIST ── */
+.tag-group{border:1px solid var(--wp-border);border-radius:var(--radius);padding:10px;background:#fafafa}
+.tag-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.tag-row:last-child{margin-bottom:0}
+.tag-row input{flex:1;border:1px solid var(--wp-border);border-radius:var(--radius);padding:5px 8px;font-size:13px;background:#fff;outline:none;font-family:inherit}
+.tag-row input:focus{border-color:var(--wp-blue)}
+.tag-del{background:none;border:none;color:var(--wp-red);cursor:pointer;font-size:16px;padding:0 4px;line-height:1}
+.add-tag-btn{font-size:12px;margin-top:8px}
+
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;display:none;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal-box{background:var(--wp-white);border:1px solid var(--wp-border);border-radius:var(--radius);width:560px;max-width:95vw;max-height:90vh;overflow-y:auto;box-shadow:0 5px 20px rgba(0,0,0,0.25)}
+.modal-header{padding:14px 16px;border-bottom:1px solid var(--wp-border-light);display:flex;align-items:center;justify-content:space-between}
+.modal-header h3{font-size:15px;font-weight:600;color:var(--wp-text)}
+.modal-close{background:none;border:none;cursor:pointer;font-size:20px;color:var(--wp-text-muted);padding:0 4px;line-height:1}
+.modal-close:hover{color:var(--wp-text)}
+.modal-body{padding:16px}
+.modal-footer{padding:12px 16px;border-top:1px solid var(--wp-border-light);background:#f6f7f7;display:flex;justify-content:flex-end;gap:8px}
+.form-field{margin-bottom:14px}
+.form-field label{display:block;font-weight:600;margin-bottom:5px;font-size:13px}
+.form-field input,.form-field textarea{width:100%;border:1px solid var(--wp-border);border-radius:var(--radius);padding:6px 9px;font-size:13px;font-family:inherit;outline:none}
+.form-field input:focus,.form-field textarea:focus{border-color:var(--wp-blue);box-shadow:0 0 0 1px var(--wp-blue)}
+.form-field textarea{min-height:90px;resize:vertical}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* ── NOTICE/TOAST ── */
+.wp-notice{position:fixed;top:42px;right:16px;z-index:500;background:var(--wp-white);border-left:4px solid var(--wp-green);border-radius:0 var(--radius) var(--radius) 0;padding:10px 16px;font-size:13px;box-shadow:0 2px 8px rgba(0,0,0,0.15);transform:translateX(120%);transition:transform 0.25s;max-width:320px}
+.wp-notice.show{transform:translateX(0)}
+.wp-notice.error{border-color:var(--wp-red)}
+.wp-notice p{margin:0;color:var(--wp-text)}
+
+/* ── STATS GRID (Our Story) ── */
+.stats-grid-edit{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stat-edit{border:1px solid var(--wp-border-light);border-radius:var(--radius);padding:10px;background:#f9f9f9}
+.stat-edit label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--wp-text-muted);display:block;margin-bottom:4px}
+</style>
+</head>
+<body>
+
+<!-- ── TOPBAR ── -->
+<div id="wpadminbar" class="login-bar">
+  <div class="ab-left">
+    <span class="ab-site">💧 Honest Water Co NF <span>| Super Admin</span></span>
+  </div>
+  <div class="ab-right" id="topbarRight"></div>
+</div>
+
+<!-- ── LOGIN ── -->
+<div id="loginScreen">
+  <div class="login-wrap">
+    <div class="login-logo">
+      <img src="logo.png" alt="Honest Water Co" onerror="this.style.display='none';document.querySelector('.login-logo-text').style.display='block'" />
+      <div class="login-logo-text" style="display:none">Honest Water Co NF</div>
+    </div>
+    <div id="loginform">
+      <h1>Log In</h1>
+      <label class="wp-label" for="passInput">Password</label>
+      <input class="wp-input" type="password" id="passInput" name="pwd" placeholder="" onkeydown="if(event.key==='Enter')login()" />
+      <button class="wp-btn btn-primary full" onclick="login()">Log In</button>
+      <div class="login-err" id="loginErr">⚠ Incorrect password. Please try again.</div>
+    </div>
+    <div class="login-footer">Honest Water Co North Florida &mdash; Admin</div>
+  </div>
+</div>
+
+<!-- ── APP ── -->
+<div id="app">
+  <!-- Sidebar -->
+  <div id="adminmenu">
+    <div class="menu-logo">
+      <img src="logo.png" alt="HWC NF" onerror="this.style.display='none';document.querySelector('.menu-logo-text').style.display='block'" />
+      <div class="menu-logo-text" style="display:none">HWC NF</div>
+    </div>
+    <ul>
+      <li class="menu-section-label">Content</li>
+      <li id="mn-contact" class="current"><button onclick="showPanel('contact','mn-contact')"><span class="menu-icon">📞</span> Contact Info</button></li>
+      <li id="mn-hero"><button onclick="showPanel('hero','mn-hero')"><span class="menu-icon">🏠</span> Hero Section</button></li>
+      <li id="mn-pricing"><button onclick="showPanel('pricing','mn-pricing')"><span class="menu-icon">💰</span> Pricing Card</button></li>
+      <li id="mn-trust"><button onclick="showPanel('trust','mn-trust')"><span class="menu-icon">🛡️</span> Trust Bar</button></li>
+      <li id="mn-build"><button onclick="showPanel('build','mn-build')"><span class="menu-icon">🔧</span> Best Seller</button></li>
+      <li id="mn-story"><button onclick="showPanel('story','mn-story')"><span class="menu-icon">📖</span> Our Story</button></li>
+      <li id="mn-areas"><button onclick="showPanel('areas','mn-areas')"><span class="menu-icon">📍</span> Service Areas</button></li>
+      <div class="menu-sep"></div>
+      <li class="menu-section-label">Posts</li>
+      <li id="mn-testimonials"><button onclick="showPanel('testimonials','mn-testimonials')"><span class="menu-icon">💬</span> Testimonials</button></li>
+      <li id="mn-faq"><button onclick="showPanel('faq','mn-faq')"><span class="menu-icon">❓</span> FAQ</button></li>
+      <li id="mn-blog"><button onclick="showPanel('blog','mn-blog')"><span class="menu-icon">📰</span> Blog Posts</button></li>
+      <div class="menu-sep"></div>
+      <li class="menu-section-label">Settings</li>
+      <li id="mn-cta"><button onclick="showPanel('cta','mn-cta')"><span class="menu-icon">📣</span> CTA Banner</button></li>
+      <li id="mn-footer"><button onclick="showPanel('footer','mn-footer')"><span class="menu-icon">🔗</span> Footer</button></li>
+      <li id="mn-colors"><button onclick="showPanel('colors','mn-colors')"><span class="menu-icon">🎨</span> Colors</button></li>
+    </ul>
+    <div class="menu-bottom">
+      <a href="/" target="_blank">👁 View Site</a>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div id="wpcontent">
+    <div class="notice" id="saveNotice"><p></p></div>
+
+    <!-- CONTACT -->
+    <div class="panel active wrap" id="panel-contact">
+      <h1 class="wp-heading-inline">Contact Information</h1>
+      <p class="subsubsub">Update your business contact details displayed sitewide.</p>
+      <div class="postbox">
+        <div class="postbox-header"><h2>Contact Details</h2></div>
+        <div class="inside">
+          <table class="form-table">
+            <tr><th><label>Phone Number</label></th><td><input type="text" class="regular-text" id="c-phone" /><p class="description">Displayed in nav, footer, and contact section.</p></td></tr>
+            <tr><th><label>Phone (digits only)</label></th><td><input type="text" class="regular-text" id="c-phoneTel" /><p class="description">Used for the tel: link, e.g. 4079721262</p></td></tr>
+            <tr><th><label>Email Address</label></th><td><input type="email" class="regular-text" id="c-email" /></td></tr>
+            <tr><th><label>Business Hours</label></th><td><input type="text" class="regular-text" id="c-hours" /><p class="description">Use &lt;br&gt; for line breaks.</p></td></tr>
+            <tr><th><label>Address</label></th><td><textarea class="large-text" id="c-address" rows="2"></textarea><p class="description">HTML allowed. Use &lt;br&gt; for line breaks.</p></td></tr>
+          </table>
+        </div>
+        <div class="submit-box"><button class="wp-btn btn-primary" onclick="saveCurrentPanel()">Save Changes</button><div class="spinner" id="spin-contact"></div></div>
+      </div>
+    </div>
+
+    <!-- HERO -->
+    <div class="panel wrap" id="panel-hero">
+      <h1 class="wp-heading-inline">Hero Section</h1>
+      <p class="subsubsub">Edit the main headline, badge, subtitle, and call-to-action buttons.</p>
+      <div class="postbox">
+        <div class="postbox-header"><h2>Headline &amp; Badge</h2></div>
+        <div class="inside">
+          <table class="form-table">
+            <tr><th><label>Top Badge Text</label></th><td><input type="text" class="regular-text" id="h-badge" /></td></tr>
+            <tr><th><label>Headline Line 1</label></th><td><input type="text" class="regular-text" id="h-line1" /></td></tr>
+            <tr><th><label>Headline Line 2</label></th><td><input type="text" class="regular-text" id="h-line2" /></td></tr>
+            <tr><th><label>Accent Word (colored)</label></th><td><input type="text" class="regular-text" id="h-accent" /><p class="description">This word displays in the brand teal color.</p></td></tr>
+            <tr><th><label>Headline Line 3</label></th><td><input type="text" class="regular-text" id="h-line3" /></td></tr>
+            <tr><th><label>Subtitle</label></th><td><textarea class="large-text" id="h-subtitle" rows="3"></textarea></td></tr>
+            <tr><th><label>CTA Button 1</label></th><td><input type="text" class="regular-text" id="h-cta1" /></td></tr>
+            <tr><th><label>CTA Button 2</label></th><td><input type="text" class="regular-text" id="h-cta2" /></td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="postbox">
+        <div class="postbox-header"><h2>Pain Points (✕ list)</h2></div>
+        <div class="inside">
+          <p class="description" style="margin-bottom:10px">These are the red ✕ bullet points in the hero section.</p>
+          <div class="tag-group" id="painPoints-list"></div>
+          <button class="wp-btn btn-secondary add-tag-btn" onclick="addTag('painPoints-list')">+ Add Pain Point</button>
+        </div>
+        <div class="submit-box"><button class="wp-btn btn-primary" onclick="saveCurrentPanel()">Save Changes</button></div>
+      </div>
+    </div>
+
+    <!-- PRICING -->
+    <div class="panel wrap" id="panel-pricing">
+      <h1 class="wp-heading-inline">Pricing Card</h1>
+      <p class="subsubsub">Edit the hero pricing card displayed on the right side of the hero section.</p>
+      <div class="postbox">
+        <div class="postbox-header"><h2>Card Content</h2></div>
+        <div class="inside">
+          <table class="form-table">
+            <tr><th><label>Card Title</label></th><td><input type="text" class="regular-text" id="p-cardTitle" /></td></tr>
+            <tr><th><label>Card Subtitle</label></th><td><input type="text" class="regular-text" id="p-cardSubtitle" /></td></tr>
+            <tr><th><label>Sale Price</label></th><td><input type="text" class="regular-text" id="p-cardPrice" /><p class="description">e.g. $2,995</p></td></tr>
+            <tr><th><label>Original Price</label></th><td><input type="text" class="regular-text" id="p-cardPriceOld" /><p class="description">Displayed crossed-out, e.g. $4,599</p></td></tr>
+            <tr><th><label>Save Label</label></th><td><input type="text" class="regular-text" id="p-cardSave" /></td></tr>
+            <tr><th><label>USA Badge Text</label></th><td><input type="text" class="regular-text" id="p-cardBadgeText" /></td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="postbox">
+        <div class="postbox-header"><h2>Feature Checklist</h2></div>
+        <div class="inside">
+          <div class="tag-group" id="cardFeatures-list"></div>
+          <button class="wp-btn btn-secondary add-tag-btn" onclick="addTag('cardFeatures-list')">+ Add Feature</button>
+        </div>
+        <div class="submit-box"><button class="wp-btn btn-primary" onclick="saveCurrentPanel()">Save Changes</button></div>
+      </div>
+    </div>
+
+    <!-- TRUST -->
+    <div class="panel wrap" id="panel-trust">
+      <h1 class="wp-heading-inline">Trust Bar</h1>
+      <p class="subsubsub">The four badges displayed below the hero section.</p>
+      <div class="postbox">
+        <div class="postbox-header"><h2>Trust Items</h2></div>
+        <div class="inside" id="trust-items"></div>
+        <div class="submit-box">
+          <button class="wp-btn btn-primary" onclick="saveCurrentPanel()">Save Changes</button>
+          <button class="wp-btn btn-secondary" onclick="addTrustItem()">+ Add Item</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- BUILD -->
+    <div class="panel wrap" id="panel-build">
+      <h1 class="wp-heading-inline">Best Seller Section</h1>
+      <p class="subsubsub">The "How We Build" section featuring the complete home system.</p>
+      <div class="postbox">
+        <div class="postbox-header"><h2>Section Content</h2></div>
+        <div class="inside">
+          <table class="form-table">
+            <tr><th><label>Section Label</label></th><td><input type="text" class="regular-text" id="b-label" /></td></tr>
+            <tr><th><label>Title</label></th><td><input type="text" class="large-text" id="b-title" /></td></tr>
+            <tr><th><label>Description</label></th><td><textarea class="large-text" id="b-desc" rows="2"></textarea></td></tr>
+            <tr><th><label>Sale Price</label></th><td><input type="text" class="regular-text" id="b-priceNew" /></td></tr>
+            <tr><th><label>Original Price</label></th><td><input type="text" class="regular-text" id="b-priceOld" /></td></tr>
+            <tr><th><label>Price Badge Label</label></th><td><input type="text" class="regular-text" id="b-priceTag" /></td></tr>
+            <tr><th><label>Button Text</label></th><td><input type="text" class="regular-text" id="b-cta" /></td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="postbox">
+        <div class="postbox-header"><h2>Feature Checklist</h2></div>
+        <div class="inside">
+          <div class="tag-group" id="buildFeatures-list"></div>
+          <button class="wp-btn btn-secondary add-tag-btn" onclick="addTag('buildFeatures-list')">+ Add Feature</button>
+        </div>
+        <div class="submit-box"><button class="wp-btn btn-primary" onclick="saveCurrentPanel()">Save Changes</button></div>
+      </div>
+    </div>
+
+    <!-- STORY -->
+    <div class="panel wrap" id="panel-story">
+      <h1 class="wp-heading-inline">Our Story</h1>
+      <div class="postbox">
+        <div class="postbox-header"><h2>Story Content</h2></div>
+        <div class="inside">
+          <table class="form-table">
+            <tr><th><label>Label</label></th><td><input type="text" class="regular-text" id="s-label" /></td></tr>
+            <tr><th><label>Title</label></th><td><input type="text" class="large-text" id="s-title" /></td></tr>
+            <tr><th><label>Paragraph 1</label></th><td><textarea class="large-text" id="s-body1" rows="3"></textarea></td></tr>
+            <tr><th><label>Paragraph 2</label></th><td><textarea class="large-text" id="s-body2" rows="3"></textarea></td></tr>
+            <tr><th><label>Button Text</label></th><td><input type="text" class="regular-text" id="s-cta" /></td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="postbox">
+        <div class="postbox-header"><h2>Stats</h2></div>
+        <div class="inside"><div class="stats-grid-edit" id="story-stats"></div></div>
+        <div class="submit-box"><button class="wp-btn btn-primary" onclick="saveCurrentPanel()">Save Changes</button></div>
+      </div>
+    </div>
+
+    <!-- SERVICE AREAS -->
+    <div class="panel wrap" id="panel-areas">
+      <h1 class="wp-heading-inline">Service Areas</h1>
+      <div class="postbox">
+        <div class="postbox-header"><h2>Section Header</h2></div>
+        <div class="inside">
+          <table class="form-table">
+            <tr><th><label>Label</label></th><td><input type="text" class="regular-text" id="sa-label" /></td></tr>
+            <tr><th><label>Title</label></th><td><input type="text" class="large-text" id="sa-title" /></td></tr>
+            <tr><th><label>Description</label></th><td><textarea class="large-text" id="sa-desc" rows="2"></textarea></td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="postbox">
+        <div class="postbox-header"><h2>County Cards</h2></div>
+        <div class="inside" id="areas-list"></div>
+        <div class="submit-box">
+          <button class="wp-btn btn-primary" onclick="saveCurrentPanel()">Save Changes</button>
+          <button class="wp-btn btn-secondary" onclick="addArea()">+ Add County</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TESTIMONIALS -->
+    <div class="panel wrap" id="panel-testimonials">
+      <h1 class="wp-heading-inline">Testimonials</h1>
+      <button class="page-title-action" onclick="openModal('review',-1)">+ Add New</button>
+      <p class="subsubsub">Customer reviews displayed in the Testimonials section.</p>
+      <table class="wp-list-table">
+        <thead><tr><th>Customer</th><th>Location</th><th>Review</th><th class="col-actions">Actions</th></tr></thead>
+        <tbody id="reviews-list"></tbody>
+      </table>
+    </div>
+
+    <!-- FAQ -->
+    <div class="panel wrap" id="panel-faq">
+      <h1 class="wp-heading-inline">FAQ</h1>
+      <button class="page-title-action" onclick="openModal('faq',-1)">+ Add New</button>
+      <p class="subsubsub">Frequently asked questions shown in the FAQ section.</p>
+      <table class="wp-list-table">
+        <thead><tr><th>Question</th><th>Answer Preview</th><th class="col-actions">Actions</th></tr></thead>
+        <tbody id="faq-list"></tbody>
+      </table>
+    </div>
+
+    <!-- BLOG -->
+    <div class="panel wrap" id="panel-blog">
+      <h1 class="wp-heading-inline">Blog Posts</h1>
+      <button class="page-title-action" onclick="openModal('blog',-1)">+ Add New</button>
+      <p class="subsubsub">Blog posts displayed in the Blogs section.</p>
+      <table class="wp-list-table">
+        <thead><tr><th>Title</th><th>Category</th><th>Date</th><th class="col-actions">Actions</th></tr></thead>
+        <tbody id="blog-list"></tbody>
+      </table>
+    </div>
+
+    <!-- CTA -->
+    <div class="panel wrap" id="panel-cta">
+      <h1 class="wp-heading-inline">CTA Banner</h1>
+      <div class="postbox">
+        <div class="postbox-header"><h2>Banner Content</h2></div>
+        <div class="inside">
+          <table class="form-table">
+            <tr><th><label>Headline</label></th><td><input type="text" class="large-text" id="cta-title" /></td></tr>
+            <tr><th><label>Description</label></th><td><textarea class="large-text" id="cta-desc" rows="2"></textarea></td></tr>
+            <tr><th><label>Phone Button Text</label></th><td><input type="text" class="regular-text" id="cta-btnPhone" /></td></tr>
+            <tr><th><label>Email Button Text</label></th><td><input type="text" class="regular-text" id="cta-btnEmail" /></td></tr>
+          </table>
+        </div>
+        <div class="submit-box"><button class="wp-btn btn-primary" onclick="saveCurrentPanel()">Save Changes</button></div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="panel wrap" id="panel-footer">
+      <h1 class="wp-heading-inline">Footer Settings</h1>
+      <div class="postbox">
+        <div class="postbox-header"><h2>Footer Content</h2></div>
+        <div class="inside">
+          <table class="form-table">
+            <tr><th><label>About Text</label></th><td><textarea class="large-text" id="f-about" rows="4"></textarea></td></tr>
+            <tr><th><label>Copyright Line</label></th><td><textarea class="large-text" id="f-copyright" rows="2"></textarea></td></tr>
+            <tr><th><label>Location (bottom right)</label></th><td><input type="text" class="regular-text" id="f-location" /></td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="postbox">
+        <div class="postbox-header"><h2>Social Media</h2></div>
+        <div class="inside">
+          <table class="form-table">
+            <tr><th><label>Facebook URL</label></th><td><input type="url" class="regular-text" id="f-fb" /></td></tr>
+            <tr><th><label>TikTok URL</label></th><td><input type="url" class="regular-text" id="f-tt" /></td></tr>
+            <tr><th><label>Instagram URL</label></th><td><input type="url" class="regular-text" id="f-ig" /></td></tr>
+          </table>
+        </div>
+        <div class="submit-box"><button class="wp-btn btn-primary" onclick="saveCurrentPanel()">Save Changes</button></div>
+      </div>
+    </div>
+
+    <!-- COLORS -->
+    <div class="panel wrap" id="panel-colors">
+      <h1 class="wp-heading-inline">Color Settings</h1>
+      <div class="postbox">
+        <div class="postbox-header"><h2>Site Colors</h2></div>
+        <div class="inside">
+          <table class="form-table">
+            <tr><th><label>Background Color</label></th><td><input type="color" id="col-navy" /><p class="description">Main dark background color.</p></td></tr>
+            <tr><th><label>Accent / Button Color</label></th><td><input type="color" id="col-teal" /><p class="description">Used for buttons, links, and highlights.</p></td></tr>
+          </table>
+        </div>
+        <div class="submit-box"><button class="wp-btn btn-primary" onclick="saveCurrentPanel()">Save Changes</button></div>
+      </div>
+    </div>
+
+  </div><!-- /wpcontent -->
+</div><!-- /app -->
+
+<!-- MODALS -->
+<div class="modal-overlay" id="modal-review">
+  <div class="modal-box">
+    <div class="modal-header"><h3 id="modal-review-title">Add Review</h3><button class="modal-close" onclick="closeModal('review')">×</button></div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-field"><label>Name</label><input type="text" id="rm-name" /></div>
+        <div class="form-field"><label>Location</label><input type="text" id="rm-location" /></div>
+      </div>
+      <div class="form-row">
+        <div class="form-field"><label>Initials (2 chars)</label><input type="text" id="rm-initials" maxlength="2" /></div>
+        <div class="form-field"><label>Rating (1–5)</label><input type="number" id="rm-rating" min="1" max="5" value="5" /></div>
+      </div>
+      <div class="form-field"><label>Review Text</label><textarea id="rm-text" rows="4"></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="wp-btn btn-secondary" onclick="closeModal('review')">Cancel</button>
+      <button class="wp-btn btn-primary" onclick="saveReview()">Save Review</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-faq">
+  <div class="modal-box">
+    <div class="modal-header"><h3 id="modal-faq-title">Add FAQ</h3><button class="modal-close" onclick="closeModal('faq')">×</button></div>
+    <div class="modal-body">
+      <div class="form-field"><label>Question</label><input type="text" id="fm-question" /></div>
+      <div class="form-field"><label>Answer</label><textarea id="fm-answer" rows="4"></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="wp-btn btn-secondary" onclick="closeModal('faq')">Cancel</button>
+      <button class="wp-btn btn-primary" onclick="saveFaq()">Save FAQ</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-blog">
+  <div class="modal-box">
+    <div class="modal-header"><h3 id="modal-blog-title">Add Blog Post</h3><button class="modal-close" onclick="closeModal('blog')">×</button></div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-field"><label>Category</label><input type="text" id="bm-category" /></div>
+        <div class="form-field"><label>Date</label><input type="text" id="bm-date" placeholder="Nov 14, 2025" /></div>
+      </div>
+      <div class="form-field"><label>Title</label><input type="text" id="bm-title" /></div>
+      <div class="form-field"><label>Image URL</label><input type="url" id="bm-image" /></div>
+    </div>
+    <div class="modal-footer">
+      <button class="wp-btn btn-secondary" onclick="closeModal('blog')">Cancel</button>
+      <button class="wp-btn btn-primary" onclick="saveBlog()">Save Post</button>
+    </div>
+  </div>
+</div>
+
+<!-- NOTICE -->
+<div class="wp-notice" id="wpNotice"><p id="wpNoticeText"></p></div>
+
+<script>
+let token = localStorage.getItem('admin_token');
+let content = {};
+let currentPanel = 'contact';
+let editIndex = -1;
+
+window.onload = async () => {
+  if (token) { const ok = await tryLoad(); if (ok) return; }
+  showLogin();
+};
+
+function showLogin() {
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('wpadminbar').classList.add('login-bar');
+  document.getElementById('topbarRight').innerHTML = '';
+}
+
+function showApp() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  document.getElementById('wpadminbar').classList.remove('login-bar');
+  document.getElementById('wpadminbar').style.paddingLeft = '160px';
+  document.getElementById('topbarRight').innerHTML = `
+    <span class="ab-user"><div class="ab-avatar">S</div> Super Admin</span>
+    <button class="ab-logout" onclick="logout()">⏻ Sign Out</button>`;
+}
+
+async function login() {
+  const pass = document.getElementById('passInput').value;
+  const errEl = document.getElementById('loginErr');
+  errEl.style.display = 'none';
+  try {
+    const r = await fetch('/api/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ password: pass }) });
+    if (!r.ok) throw new Error();
+    const d = await r.json();
+    token = d.token;
+    localStorage.setItem('admin_token', token);
+    await loadContent();
+    showApp();
+  } catch { errEl.style.display = 'block'; }
+}
+
+async function tryLoad() {
+  try {
+    const r = await fetch('/api/content', { headers: { 'x-token': token } });
+    if (!r.ok) { localStorage.removeItem('admin_token'); return false; }
+    content = await r.json();
+    showApp();
+    populateAll();
+    return true;
+  } catch { return false; }
+}
+
+async function loadContent() {
+  const r = await fetch('/api/content', { headers: { 'x-token': token } });
+  content = await r.json();
+  populateAll();
+}
+
+async function logout() {
+  await fetch('/api/logout', { method:'POST', headers:{'x-token':token} }).catch(()=>{});
+  localStorage.removeItem('admin_token');
+  token = null;
+  showLogin();
+}
+
+/* ── PANELS ── */
+function showPanel(name, menuId) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('#adminmenu li').forEach(l => l.classList.remove('current'));
+  document.getElementById('panel-' + name).classList.add('active');
+  document.getElementById(menuId).classList.add('current');
+  currentPanel = name;
+  window.scrollTo(0,0);
+}
+
+/* ── POPULATE ── */
+function populateAll() {
+  const c = content;
+  if (c.contact) { s('c-phone',c.contact.phone); s('c-phoneTel',c.contact.phoneTel); s('c-email',c.contact.email); s('c-hours',c.contact.hours); s('c-address',c.contact.address); }
+  if (c.hero) { s('h-badge',c.hero.badge); s('h-line1',c.hero.line1); s('h-line2',c.hero.line2); s('h-accent',c.hero.accent); s('h-line3',c.hero.line3); s('h-subtitle',c.hero.subtitle); s('h-cta1',c.hero.cta1); s('h-cta2',c.hero.cta2); renderTags('painPoints-list', c.hero.painPoints||[]); }
+  if (c.pricing) { s('p-cardTitle',c.pricing.cardTitle); s('p-cardSubtitle',c.pricing.cardSubtitle); s('p-cardPrice',c.pricing.cardPrice); s('p-cardPriceOld',c.pricing.cardPriceOld); s('p-cardSave',c.pricing.cardSave); s('p-cardBadgeText',c.pricing.cardBadgeText); renderTags('cardFeatures-list', c.pricing.cardFeatures||[]); }
+  if (c.trust) renderTrustItems(c.trust);
+  if (c.build) { s('b-label',c.build.label); s('b-title',c.build.title); s('b-desc',c.build.desc); s('b-priceNew',c.build.priceNew); s('b-priceOld',c.build.priceOld); s('b-priceTag',c.build.priceTag); s('b-cta',c.build.cta); renderTags('buildFeatures-list', c.build.features||[]); }
+  if (c.story) { s('s-label',c.story.label); s('s-title',c.story.title); s('s-body1',c.story.body1); s('s-body2',c.story.body2); s('s-cta',c.story.cta); renderStoryStats(c.story.stats||[]); }
+  if (c.serviceAreas) { s('sa-label',c.serviceAreas.label); s('sa-title',c.serviceAreas.title); s('sa-desc',c.serviceAreas.desc); renderAreas(c.serviceAreas.areas||[]); }
+  renderReviews(); renderFaqs(); renderBlogs();
+  if (c.cta) { s('cta-title',c.cta.title); s('cta-desc',c.cta.desc); s('cta-btnPhone',c.cta.btnPhone); s('cta-btnEmail',c.cta.btnEmail); }
+  if (c.footer) { s('f-about',c.footer.about); s('f-copyright',c.footer.copyright); s('f-location',c.footer.location); s('f-fb',c.footer.socialFacebook); s('f-tt',c.footer.socialTiktok); s('f-ig',c.footer.socialInstagram); }
+  if (c.colors) { sc('col-navy',c.colors.navy); sc('col-teal',c.colors.teal); }
+}
+
+/* ── SAVE ── */
+async function saveCurrentPanel() {
+  collectPanel();
+  try {
+    const r = await fetch('/api/content', { method:'POST', headers:{'Content-Type':'application/json','x-token':token}, body: JSON.stringify(content) });
+    if (!r.ok) throw new Error();
+    notify('Settings saved.');
+  } catch { notify('Error saving. Please try again.', true); }
+}
+
+function collectPanel() {
+  const p = currentPanel;
+  if (p==='contact') content.contact = { phone:g('c-phone'), phoneTel:g('c-phoneTel'), email:g('c-email'), hours:g('c-hours'), address:g('c-address') };
+  if (p==='hero') content.hero = { ...content.hero, badge:g('h-badge'), line1:g('h-line1'), line2:g('h-line2'), accent:g('h-accent'), line3:g('h-line3'), subtitle:g('h-subtitle'), cta1:g('h-cta1'), cta2:g('h-cta2'), painPoints:getTags('painPoints-list') };
+  if (p==='pricing') content.pricing = { ...content.pricing, cardTitle:g('p-cardTitle'), cardSubtitle:g('p-cardSubtitle'), cardPrice:g('p-cardPrice'), cardPriceOld:g('p-cardPriceOld'), cardSave:g('p-cardSave'), cardBadgeText:g('p-cardBadgeText'), cardFeatures:getTags('cardFeatures-list') };
+  if (p==='trust') content.trust = getTrustItems();
+  if (p==='build') content.build = { ...content.build, label:g('b-label'), title:g('b-title'), desc:g('b-desc'), priceNew:g('b-priceNew'), priceOld:g('b-priceOld'), priceTag:g('b-priceTag'), cta:g('b-cta'), features:getTags('buildFeatures-list') };
+  if (p==='story') content.story = { ...content.story, label:g('s-label'), title:g('s-title'), body1:g('s-body1'), body2:g('s-body2'), cta:g('s-cta'), stats:getStoryStats() };
+  if (p==='areas') content.serviceAreas = { ...content.serviceAreas, label:g('sa-label'), title:g('sa-title'), desc:g('sa-desc'), areas:getAreas() };
+  if (p==='cta') content.cta = { title:g('cta-title'), desc:g('cta-desc'), btnPhone:g('cta-btnPhone'), btnEmail:g('cta-btnEmail') };
+  if (p==='footer') content.footer = { about:g('f-about'), copyright:g('f-copyright'), location:g('f-location'), socialFacebook:g('f-fb'), socialTiktok:g('f-tt'), socialInstagram:g('f-ig') };
+  if (p==='colors') content.colors = { navy:gc('col-navy'), teal:gc('col-teal'), accent:gc('col-teal') };
+}
+
+/* ── TAG LISTS ── */
+function renderTags(id, tags) {
+  const el = document.getElementById(id);
+  el.innerHTML = tags.map((t,i) => `
+    <div class="tag-row">
+      <input type="text" value="${esc(t)}" />
+      <button class="tag-del" onclick="removeTag('${id}',${i})" title="Remove">×</button>
+    </div>`).join('');
+}
+function addTag(id) {
+  const el = document.getElementById(id);
+  const i = el.children.length;
+  el.innerHTML += `<div class="tag-row"><input type="text" placeholder="Enter text..." /><button class="tag-del" onclick="removeTag('${id}',${i})">×</button></div>`;
+}
+function removeTag(id, i) { document.getElementById(id).children[i]?.remove(); }
+function getTags(id) { return [...document.getElementById(id).querySelectorAll('input')].map(el=>el.value).filter(Boolean); }
+
+/* ── TRUST ── */
+function renderTrustItems(items) {
+  document.getElementById('trust-items').innerHTML = items.map((t,i) => `
+    <div style="border:1px solid var(--wp-border-light);border-radius:var(--radius);padding:12px;margin-bottom:10px;background:#fafafa">
+      <div style="display:grid;grid-template-columns:80px 1fr 1fr auto;gap:10px;align-items:start">
+        <div><label style="font-size:11px;font-weight:600;display:block;margin-bottom:4px;color:var(--wp-text-muted)">ICON</label><input type="text" style="width:100%;border:1px solid var(--wp-border);padding:5px;border-radius:3px;font-size:14px" id="ti-icon-${i}" value="${esc(t.icon)}" /></div>
+        <div><label style="font-size:11px;font-weight:600;display:block;margin-bottom:4px;color:var(--wp-text-muted)">TITLE</label><input type="text" style="width:100%;border:1px solid var(--wp-border);padding:5px;border-radius:3px;font-size:13px" id="ti-title-${i}" value="${esc(t.title)}" /></div>
+        <div><label style="font-size:11px;font-weight:600;display:block;margin-bottom:4px;color:var(--wp-text-muted)">DESCRIPTION</label><input type="text" style="width:100%;border:1px solid var(--wp-border);padding:5px;border-radius:3px;font-size:13px" id="ti-desc-${i}" value="${esc(t.desc)}" /></div>
+        <div style="padding-top:18px"><button class="wp-btn btn-danger" style="padding:4px 8px" onclick="removeTrustItem(${i})">✕</button></div>
+      </div>
+    </div>`).join('');
+}
+function addTrustItem() { const items=getTrustItems(); items.push({icon:'✅',title:'New Item',desc:'Description'}); renderTrustItems(items); }
+function removeTrustItem(i) { const items=getTrustItems(); items.splice(i,1); renderTrustItems(items); }
+function getTrustItems() {
+  const items=[]; let i=0;
+  while(document.getElementById(`ti-icon-${i}`)) { items.push({icon:g(`ti-icon-${i}`),title:g(`ti-title-${i}`),desc:g(`ti-desc-${i}`)}); i++; }
+  return items;
+}
+
+/* ── STORY STATS ── */
+function renderStoryStats(stats) {
+  document.getElementById('story-stats').innerHTML = (stats||[]).map((s,i) => `
+    <div class="stat-edit">
+      <label>Stat ${i+1} — Number</label>
+      <input type="text" class="regular-text" id="ss-num-${i}" value="${esc(s.num)}" style="width:100%;margin-bottom:8px" />
+      <label>Label</label>
+      <input type="text" class="regular-text" id="ss-lbl-${i}" value="${esc(s.label)}" style="width:100%" />
+    </div>`).join('');
+}
+function getStoryStats() {
+  const s=[]; let i=0;
+  while(document.getElementById(`ss-num-${i}`)) { s.push({num:g(`ss-num-${i}`),label:g(`ss-lbl-${i}`)}); i++; }
+  return s;
+}
+
+/* ── AREAS ── */
+function renderAreas(areas) {
+  document.getElementById('areas-list').innerHTML = (areas||[]).map((a,i) => `
+    <div style="border:1px solid var(--wp-border-light);border-radius:var(--radius);padding:12px;margin-bottom:10px;background:#fafafa;display:flex;gap:12px;align-items:start">
+      <div style="flex:1"><label style="font-size:11px;font-weight:600;display:block;margin-bottom:4px;color:var(--wp-text-muted)">COUNTY NAME</label><input type="text" class="regular-text" id="ar-name-${i}" value="${esc(a.name)}" style="width:100%;margin-bottom:8px" /></div>
+      <div style="flex:2"><label style="font-size:11px;font-weight:600;display:block;margin-bottom:4px;color:var(--wp-text-muted)">CITIES (comma separated)</label><input type="text" class="regular-text" id="ar-cities-${i}" value="${esc(a.cities)}" style="width:100%;margin-bottom:8px" /></div>
+      <div style="padding-top:18px"><button class="wp-btn btn-danger" style="padding:4px 8px" onclick="removeArea(${i})">✕</button></div>
+    </div>`).join('');
+}
+function addArea() { const a=getAreas(); a.push({name:'New County',cities:'City 1, City 2'}); renderAreas(a); }
+function removeArea(i) { const a=getAreas(); a.splice(i,1); renderAreas(a); }
+function getAreas() {
+  const a=[]; let i=0;
+  while(document.getElementById(`ar-name-${i}`)) { a.push({name:g(`ar-name-${i}`),cities:g(`ar-cities-${i}`)}); i++; }
+  return a;
+}
+
+/* ── REVIEWS TABLE ── */
+function renderReviews() {
+  document.getElementById('reviews-list').innerHTML = (content.testimonials||[]).map((r,i) => `
+    <tr>
+      <td class="col-name">${r.name}<div class="row-actions"><span><a onclick="openModal('review',${i})">Edit</a></span></div></td>
+      <td class="col-meta">${r.location}</td>
+      <td><div class="col-preview">"${r.text.substring(0,80)}..."</div></td>
+      <td class="col-actions"><button class="wp-btn btn-danger" style="padding:3px 8px;font-size:12px" onclick="deleteItem('testimonials',${i})">Delete</button></td>
+    </tr>`).join('') || '<tr><td colspan="4" style="color:var(--wp-text-muted);text-align:center;padding:20px">No reviews yet. Add one above.</td></tr>';
+}
+
+/* ── FAQ TABLE ── */
+function renderFaqs() {
+  document.getElementById('faq-list').innerHTML = (content.faqs||[]).map((f,i) => `
+    <tr>
+      <td class="col-name">${f.question}<div class="row-actions"><span><a onclick="openModal('faq',${i})">Edit</a></span></div></td>
+      <td class="col-preview">${f.answer.substring(0,70)}...</td>
+      <td class="col-actions"><button class="wp-btn btn-danger" style="padding:3px 8px;font-size:12px" onclick="deleteItem('faqs',${i})">Delete</button></td>
+    </tr>`).join('') || '<tr><td colspan="3" style="color:var(--wp-text-muted);text-align:center;padding:20px">No FAQ items yet.</td></tr>';
+}
+
+/* ── BLOG TABLE ── */
+function renderBlogs() {
+  document.getElementById('blog-list').innerHTML = (content.blog||[]).map((b,i) => `
+    <tr>
+      <td class="col-name">${b.title}<div class="row-actions"><span><a onclick="openModal('blog',${i})">Edit</a></span></div></td>
+      <td>${b.category}</td>
+      <td class="col-meta">${b.date}</td>
+      <td class="col-actions"><button class="wp-btn btn-danger" style="padding:3px 8px;font-size:12px" onclick="deleteItem('blog',${i})">Delete</button></td>
+    </tr>`).join('') || '<tr><td colspan="4" style="color:var(--wp-text-muted);text-align:center;padding:20px">No blog posts yet.</td></tr>';
+}
+
+/* ── MODALS ── */
+function openModal(type, i) {
+  editIndex = i;
+  if (type==='review') {
+    const r = i>=0 ? content.testimonials[i] : {};
+    document.getElementById('modal-review-title').textContent = i>=0 ? 'Edit Review' : 'Add Review';
+    s('rm-name',r.name||''); s('rm-location',r.location||''); s('rm-initials',r.initials||''); s('rm-rating',r.rating||5); s('rm-text',r.text||'');
+  } else if (type==='faq') {
+    const f = i>=0 ? content.faqs[i] : {};
+    document.getElementById('modal-faq-title').textContent = i>=0 ? 'Edit FAQ' : 'Add Question';
+    s('fm-question',f.question||''); s('fm-answer',f.answer||'');
+  } else if (type==='blog') {
+    const b = i>=0 ? content.blog[i] : {};
+    document.getElementById('modal-blog-title').textContent = i>=0 ? 'Edit Post' : 'Add Post';
+    s('bm-category',b.category||''); s('bm-title',b.title||''); s('bm-date',b.date||''); s('bm-image',b.image||'');
+  }
+  document.getElementById('modal-'+type).classList.add('open');
+}
+function closeModal(type) { document.getElementById('modal-'+type).classList.remove('open'); }
+
+async function saveReview() {
+  const r = {name:g('rm-name'),location:g('rm-location'),initials:g('rm-initials'),rating:parseInt(g('rm-rating'))||5,text:g('rm-text')};
+  if(!content.testimonials) content.testimonials=[];
+  editIndex>=0 ? content.testimonials[editIndex]=r : content.testimonials.push(r);
+  closeModal('review'); renderReviews(); await persistContent();
+}
+async function saveFaq() {
+  const f = {question:g('fm-question'),answer:g('fm-answer')};
+  if(!content.faqs) content.faqs=[];
+  editIndex>=0 ? content.faqs[editIndex]=f : content.faqs.push(f);
+  closeModal('faq'); renderFaqs(); await persistContent();
+}
+async function saveBlog() {
+  const b = {category:g('bm-category'),title:g('bm-title'),date:g('bm-date'),image:g('bm-image')};
+  if(!content.blog) content.blog=[];
+  editIndex>=0 ? content.blog[editIndex]=b : content.blog.push(b);
+  closeModal('blog'); renderBlogs(); await persistContent();
+}
+async function deleteItem(key, i) {
+  if (!confirm('Delete this item?')) return;
+  content[key].splice(i,1);
+  if (key==='testimonials') renderReviews();
+  if (key==='faqs') renderFaqs();
+  if (key==='blog') renderBlogs();
+  await persistContent();
+}
+async function persistContent() {
+  try {
+    const r = await fetch('/api/content',{method:'POST',headers:{'Content-Type':'application/json','x-token':token},body:JSON.stringify(content)});
+    if(!r.ok) throw new Error();
+    notify('Saved successfully.');
+  } catch { notify('Error saving.', true); }
+}
+
+/* ── UTILS ── */
+const g  = (id) => { const el=document.getElementById(id); return el?el.value:''; };
+const s  = (id,v) => { const el=document.getElementById(id); if(el) el.value=v||''; };
+const gc = (id) => document.getElementById(id)?.value || '';
+const sc = (id,v) => { const el=document.getElementById(id); if(el&&v) el.value=v; };
+const esc = (str) => (str||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+
+function notify(msg, isErr=false) {
+  const el = document.getElementById('wpNotice');
+  const txt = document.getElementById('wpNoticeText');
+  txt.textContent = msg;
+  el.className = 'wp-notice' + (isErr?' error':'');
+  setTimeout(()=>el.classList.add('show'), 10);
+  setTimeout(()=>el.classList.remove('show'), 3000);
+}
+
+document.querySelectorAll('.modal-overlay').forEach(m => m.addEventListener('click', e => { if(e.target===m) m.classList.remove('open'); }));
+document.addEventListener('keydown', e => { if(e.key==='Escape') document.querySelectorAll('.modal-overlay.open').forEach(m=>m.classList.remove('open')); });
+</script>
+</body>
+</html>

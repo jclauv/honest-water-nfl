@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Honest Water Co North Florida – Pure, Toxin-Free Water in Florida</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --navy: #0a1628;
+      --navy2: #0f1f38;
+      --navy3: #162440;
+      --card: #0d1a2e;
+      --teal: #00c2b8;
+      --teal2: #00ddd2;
+      --red: #ff4444;
+      --text: #ffffff;
+      --text2: #b8c8e0;
+      --text3: #7a8fa8;
+      --border: rgba(255,255,255,0.08);
+      --border2: rgba(255,255,255,0.14);
+      --radius: 14px;
+      --radius-lg: 20px;
+    }
+
+    body { font-family: 'Inter', sans-serif; background: var(--navy); color: var(--text); line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* ===== NAV ===== */
+    nav {
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(10,22,40,0.97);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 70px;
+    }
+    .nav-logo { cursor: pointer; display: flex; align-items: center; text-decoration: none; }
+    .nav-logo img { height: 50px; width: auto; }
+    .nav-center { display: flex; align-items: center; gap: 4px; list-style: none; }
+
+    /* dropdown */
+    .nav-item { position: relative; }
+    .nav-item > a {
+      display: flex; align-items: center; gap: 5px;
+      padding: 8px 12px; border-radius: 8px;
+      font-size: 0.875rem; font-weight: 500; color: var(--text2);
+      transition: color 0.2s, background 0.2s;
+      cursor: pointer;
+    }
+    .nav-item > a:hover { color: var(--teal); background: rgba(255,255,255,0.04); }
+    .nav-item > a.active { color: var(--teal); }
+    .nav-arrow { font-size: 0.6rem; transition: transform 0.2s; }
+    .nav-item:hover .nav-arrow { transform: rotate(180deg); }
+    .dropdown {
+      position: absolute; top: 100%; left: 0;
+      background: #0d1a2e; border: 1px solid var(--border2);
+      border-radius: 12px; padding: 8px; min-width: 200px;
+      opacity: 0; pointer-events: none; transform: translateY(-6px);
+      transition: opacity 0.2s, transform 0.2s;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+      z-index: 300; margin-top: 8px;
+    }
+    .dropdown::before {
+      content: ''; position: absolute; top: -8px; left: 0; right: 0; height: 8px;
+    }
+    .nav-item:hover .dropdown { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .dropdown a {
+      display: block; padding: 9px 14px; border-radius: 8px;
+      font-size: 0.83rem; color: var(--text2);
+      transition: background 0.15s, color 0.15s;
+    }
+    .dropdown a:hover { background: rgba(0,194,184,0.1); color: var(--teal); }
+
+    .nav-right { display: flex; align-items: center; gap: 14px; }
+    .nav-phone { font-weight: 600; font-size: 0.88rem; color: var(--text2); }
+    .nav-phone:hover { color: var(--teal); }
+
+    /* hamburger */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 6px; border: none; background: none;
+    }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--text2); border-radius: 2px; transition: all 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* mobile menu */
+    .mobile-menu {
+      display: none; position: fixed; top: 70px; left: 0; right: 0; bottom: 0;
+      background: var(--navy); z-index: 199; padding: 24px;
+      flex-direction: column; gap: 4px; overflow-y: auto;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      display: block; padding: 14px 16px; border-radius: 10px;
+      font-size: 1rem; font-weight: 500; color: var(--text2);
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-menu a:hover { color: var(--teal); background: rgba(255,255,255,0.03); }
+    .mobile-menu .mobile-cta { margin-top: 16px; }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 24px; border-radius: 8px;
+      font-weight: 600; font-size: 0.875rem;
+      cursor: pointer; transition: all 0.2s; border: none; white-space: nowrap;
+    }
+    .btn-teal { background: var(--teal); color: #000; }
+    .btn-teal:hover { background: var(--teal2); transform: translateY(-1px); }
+    .btn-outline { background: transparent; border: 1.5px solid var(--border2); color: var(--text); }
+    .btn-outline:hover { border-color: var(--teal); color: var(--teal); }
+    .btn-lg { padding: 15px 32px; font-size: 1rem; border-radius: 10px; }
+    .btn-sm { padding: 9px 18px; font-size: 0.82rem; }
+    .btn-full { width: 100%; justify-content: center; }
+
+    /* ===== HERO ===== */
+    #home {
+      background: linear-gradient(135deg, #0a1628 0%, #0f1f3a 40%, #0a2040 100%);
+      padding: 80px 48px;
+      position: relative; overflow: hidden;
+    }
+    #home::before {
+      content: ''; position: absolute; top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(0,194,184,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 420px;
+      gap: 60px; align-items: center; position: relative;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(0,194,184,0.12); border: 1px solid rgba(0,194,184,0.25);
+      color: var(--teal); padding: 6px 16px; border-radius: 100px;
+      font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.8px; margin-bottom: 24px;
+    }
+    .hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--teal); }
+    #home h1 {
+      font-size: 3.6rem; font-weight: 900; line-height: 1.08;
+      letter-spacing: -1.5px; margin-bottom: 20px; color: #fff;
+    }
+    #home h1 .accent { color: var(--teal); }
+    .hero-sub { font-size: 1rem; color: var(--text2); max-width: 500px; margin-bottom: 28px; line-height: 1.65; }
+    .pain-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 36px; }
+    .pain-list li { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: var(--text2); }
+    .pain-x {
+      display: flex; align-items: center; justify-content: center;
+      width: 20px; height: 20px; min-width: 20px;
+      background: rgba(255,68,68,0.15); border-radius: 50%;
+      color: var(--red); font-size: 0.65rem; font-weight: 900;
+    }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    /* hero card */
+    .hero-card {
+      background: rgba(13,26,46,0.97); border: 1px solid var(--border2);
+      border-radius: var(--radius-lg); padding: 32px 28px;
+    }
+    .hcard-title { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .hcard-sub { font-size: 0.78rem; color: var(--text3); margin-bottom: 20px; }
+    .hcard-price-old { font-size: 0.95rem; color: var(--text3); text-decoration: line-through; }
+    .hcard-price { font-size: 2.8rem; font-weight: 900; color: #fff; letter-spacing: -1px; line-height: 1; margin: 4px 0 6px; }
+    .hcard-save {
+      display: inline-block; background: rgba(0,194,184,0.15); color: var(--teal);
+      padding: 3px 12px; border-radius: 100px; font-size: 0.75rem; font-weight: 700; margin-bottom: 22px;
+    }
+    .hcard-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+    .hcard-list li { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: var(--text2); }
+    .hcard-check {
+      display: flex; align-items: center; justify-content: center;
+      width: 20px; height: 20px; min-width: 20px;
+      background: rgba(0,194,184,0.2); border-radius: 50%;
+      color: var(--teal); font-size: 0.6rem; font-weight: 900;
+    }
+    .hcard-badge {
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      border-radius: 10px; padding: 12px 14px; margin-bottom: 18px;
+    }
+    .hcard-badge-text { font-size: 0.78rem; color: var(--text2); font-weight: 500; }
+    .hcard-badge-text strong { color: #fff; display: block; font-size: 0.82rem; }
+
+    /* ===== TRUST BAR ===== */
+    .trust-bar {
+      background: var(--navy2); border-bottom: 1px solid var(--border);
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      text-align: center; padding: 24px 48px; gap: 20px;
+    }
+    .trust-item {
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      padding: 0 16px; border-right: 1px solid var(--border);
+    }
+    .trust-item:last-child { border-right: none; }
+    .trust-icon { font-size: 1.6rem; }
+    .trust-title { font-weight: 700; font-size: 0.9rem; color: #fff; }
+    .trust-desc { font-size: 0.75rem; color: var(--text3); }
+
+    /* ===== SHARED ===== */
+    section { padding: 80px 48px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .section-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--teal); margin-bottom: 10px; }
+    .section-title { font-size: 2.2rem; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 14px; letter-spacing: -0.5px; }
+    .section-desc { font-size: 0.95rem; color: var(--text2); max-width: 580px; margin-bottom: 40px; line-height: 1.65; }
+    .text-center { text-align: center; }
+    .text-center .section-desc { margin-left: auto; margin-right: auto; }
+
+    /* ===== BUILD ===== */
+    #build { background: var(--navy2); }
+    .build-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+    .price-old { font-size: 1rem; color: var(--text3); text-decoration: line-through; margin-bottom: 4px; }
+    .price-new { font-size: 2.4rem; font-weight: 900; color: #fff; letter-spacing: -1px; margin-bottom: 6px; }
+    .price-tag {
+      display: inline-block; background: rgba(0,194,184,0.15); border: 1px solid rgba(0,194,184,0.3);
+      color: var(--teal); padding: 5px 14px; border-radius: 6px;
+      font-size: 0.8rem; font-weight: 700; margin-bottom: 28px;
+    }
+    .build-list { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-bottom: 32px; }
+    .build-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.9rem; color: var(--text2); }
+    .build-list li::before {
+      content: '✓'; display: flex; align-items: center; justify-content: center;
+      width: 22px; height: 22px; min-width: 22px;
+      background: rgba(0,194,184,0.2); color: var(--teal);
+      border-radius: 50%; font-size: 0.7rem; font-weight: 800; margin-top: 2px;
+    }
+    .build-visual { border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4/3; background: var(--navy3); }
+    .build-visual img { width: 100%; height: 100%; object-fit: contain; padding: 20px; }
+
+    /* ===== PRODUCTS ===== */
+    #products { background: var(--navy); }
+    .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .products-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .products-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; max-width: 780px; }
+
+    /* tabs */
+    .prod-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 36px; }
+    .prod-tab {
+      padding: 11px 22px; border-radius: 100px; font-size: 0.875rem; font-weight: 600;
+      cursor: pointer; border: 1.5px solid var(--border2); color: var(--text2);
+      background: transparent; transition: all 0.2s; font-family: 'Inter', sans-serif;
+    }
+    .prod-tab:hover { border-color: var(--teal); color: var(--teal); }
+    .prod-tab.active { background: var(--teal); color: #000; border-color: var(--teal); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* badges */
+    .prod-badge {
+      display: inline-block; padding: 3px 10px; border-radius: 100px;
+      font-size: 0.65rem; font-weight: 700; margin-bottom: 8px; letter-spacing: 0.3px;
+    }
+    .badge-bestseller { background: rgba(251,191,36,0.15); color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
+    .badge-popular { background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.25); }
+    .badge-saltfree { background: rgba(34,197,94,0.12); color: #4ade80; border: 1px solid rgba(34,197,94,0.25); }
+    .badge-classic { background: rgba(139,92,246,0.12); color: #a78bfa; border: 1px solid rgba(139,92,246,0.25); }
+    .badge-eco { background: rgba(34,197,94,0.12); color: #4ade80; border: 1px solid rgba(34,197,94,0.25); }
+    .badge-max { background: rgba(251,146,60,0.15); color: #fb923c; border: 1px solid rgba(251,146,60,0.3); }
+    .badge-well { background: rgba(56,189,248,0.12); color: #38bdf8; border: 1px solid rgba(56,189,248,0.25); }
+    .badge-specialty { background: rgba(232,121,249,0.12); color: #e879f9; border: 1px solid rgba(232,121,249,0.25); }
+    .badge-chemical { background: rgba(34,197,94,0.12); color: #4ade80; border: 1px solid rgba(34,197,94,0.25); }
+    .badge-protector { background: rgba(56,189,248,0.12); color: #38bdf8; border: 1px solid rgba(56,189,248,0.25); }
+    .badge-outdoor { background: rgba(251,146,60,0.15); color: #fb923c; border: 1px solid rgba(251,146,60,0.3); }
+    .badge-toprated { background: rgba(251,191,36,0.15); color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
+    .badge-classicro { background: rgba(148,163,184,0.15); color: #94a3b8; border: 1px solid rgba(148,163,184,0.3); }
+    .prod-tag { font-size: 0.65rem; color: var(--teal); font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; }
+    .product-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .product-card:hover { border-color: rgba(0,194,184,0.3); transform: translateY(-4px); }
+    .product-img { aspect-ratio: 16/9; overflow: hidden; background: var(--navy3); display: flex; align-items: center; justify-content: center; }
+    .product-img img { width: 100%; height: 100%; object-fit: contain; padding: 12px; transition: transform 0.3s; }
+    .product-card:hover .product-img img { transform: scale(1.04); }
+    .product-body { padding: 16px; }
+    .product-name { font-size: 0.9rem; font-weight: 700; margin-bottom: 7px; color: #fff; }
+    .product-desc { font-size: 0.78rem; color: var(--text2); margin-bottom: 12px; line-height: 1.55; }
+    .product-features { list-style: none; display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
+    .product-features li { font-size: 0.75rem; color: var(--text2); display: flex; align-items: center; gap: 8px; }
+    .product-features li::before { content: '●'; color: var(--teal); font-size: 0.45rem; min-width: 8px; }
+
+    /* ===== WHY US ===== */
+    #why-us { background: var(--navy2); }
+    .diff-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; text-align: center; }
+    .diff-item {
+      background: var(--card); border-radius: var(--radius); padding: 28px 16px;
+      border: 1px solid var(--border); transition: border-color 0.2s, transform 0.2s;
+    }
+    .diff-item:hover { border-color: rgba(0,194,184,0.3); transform: translateY(-3px); }
+    .diff-icon { font-size: 2rem; margin-bottom: 12px; }
+    .diff-title { font-size: 0.88rem; font-weight: 700; margin-bottom: 8px; color: #fff; }
+    .diff-desc { font-size: 0.75rem; color: var(--text3); line-height: 1.55; }
+
+    /* ===== OUR STORY ===== */
+    #our-story { background: var(--navy); }
+    .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+    .story-img { border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4/3; background: var(--navy3); }
+    .story-img img { width: 100%; height: 100%; object-fit: cover; }
+    .story-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 28px; }
+    .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; text-align: center; }
+    .stat-num { font-size: 2rem; font-weight: 900; color: var(--teal); letter-spacing: -1px; }
+    .stat-label { font-size: 0.78rem; color: var(--text3); margin-top: 4px; }
+
+    /* ===== SERVICE AREAS ===== */
+    #service-areas { background: var(--navy2); }
+    .areas-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .area-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 24px 20px; text-align: center; transition: border-color 0.2s, transform 0.2s;
+    }
+    .area-card:hover { border-color: rgba(0,194,184,0.3); transform: translateY(-3px); }
+    .area-icon { font-size: 2rem; margin-bottom: 12px; }
+    .area-name { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+    .area-cities { font-size: 0.78rem; color: var(--text3); line-height: 1.6; }
+
+    /* ===== TESTIMONIALS ===== */
+    #testimonials { background: var(--navy); }
+    .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .review-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 28px; transition: border-color 0.2s;
+    }
+    .review-card:hover { border-color: rgba(0,194,184,0.25); }
+    .stars { color: #fbbf24; font-size: 1rem; margin-bottom: 14px; letter-spacing: 2px; }
+    .review-text { font-size: 0.88rem; color: var(--text2); line-height: 1.7; margin-bottom: 20px; font-style: italic; }
+    .reviewer { display: flex; align-items: center; gap: 12px; }
+    .reviewer-avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), #1a73e8);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.9rem; color: #000; flex-shrink: 0;
+    }
+    .reviewer-name { font-weight: 700; font-size: 0.88rem; color: #fff; }
+    .reviewer-location { font-size: 0.75rem; color: var(--text3); }
+
+    /* ===== GALLERY ===== */
+    #gallery { background: var(--navy2); }
+    .gallery-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+    .gallery-item { aspect-ratio: 3/4; border-radius: 10px; overflow: hidden; background: var(--navy3); cursor: pointer; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+    .gallery-item:hover img { transform: scale(1.07); }
+
+    /* lightbox */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 500;
+      background: rgba(0,0,0,0.92); align-items: center; justify-content: center;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 85vh; border-radius: 12px; object-fit: contain; }
+    .lightbox-close {
+      position: absolute; top: 20px; right: 28px; font-size: 2rem; color: #fff;
+      cursor: pointer; line-height: 1; background: none; border: none;
+    }
+    .lb-prev, .lb-next {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      font-size: 2rem; color: #fff; cursor: pointer;
+      background: rgba(255,255,255,0.1); border: none; border-radius: 50%;
+      width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .lb-prev:hover, .lb-next:hover { background: rgba(0,194,184,0.3); }
+    .lb-prev { left: 20px; }
+    .lb-next { right: 20px; }
+
+    /* ===== FAQ ===== */
+    #faq { background: var(--navy); }
+    .faq-list { display: flex; flex-direction: column; gap: 12px; max-width: 800px; margin: 0 auto; }
+    .faq-item {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+    }
+    .faq-q {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 24px; cursor: pointer; user-select: none;
+      font-weight: 700; font-size: 0.95rem; color: #fff;
+      transition: color 0.2s;
+    }
+    .faq-q:hover { color: var(--teal); }
+    .faq-q.open { color: var(--teal); }
+    .faq-icon { font-size: 1.2rem; color: var(--teal); transition: transform 0.3s; flex-shrink: 0; margin-left: 16px; }
+    .faq-q.open .faq-icon { transform: rotate(45deg); }
+    .faq-a {
+      font-size: 0.88rem; color: var(--text2); line-height: 1.7;
+      padding: 0 24px; max-height: 0; overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.35s ease;
+    }
+    .faq-a.open { max-height: 300px; padding: 0 24px 20px; }
+
+    /* ===== BLOG ===== */
+    #blog { background: var(--navy2); }
+    .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .blog-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s; cursor: pointer;
+    }
+    .blog-card:hover { border-color: rgba(0,194,184,0.25); transform: translateY(-3px); }
+    .blog-img { aspect-ratio: 16/9; overflow: hidden; background: var(--navy3); }
+    .blog-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+    .blog-card:hover .blog-img img { transform: scale(1.04); }
+    .blog-body { padding: 20px; }
+    .blog-category {
+      display: inline-block; background: rgba(0,194,184,0.12); color: var(--teal);
+      padding: 3px 10px; border-radius: 100px; font-size: 0.7rem; font-weight: 700;
+      margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .blog-title { font-size: 0.92rem; font-weight: 700; color: #fff; margin-bottom: 8px; line-height: 1.4; }
+    .blog-date { font-size: 0.75rem; color: var(--text3); }
+
+    /* ===== CONTACT / QUOTE FORM ===== */
+    #contact { background: linear-gradient(135deg, #0a1e3a, #0d2a40, #092830); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+    .contact-info h2 { font-size: 2.4rem; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 14px; }
+    .contact-info p { font-size: 0.95rem; color: var(--text2); line-height: 1.7; margin-bottom: 32px; }
+    .contact-details { display: flex; flex-direction: column; gap: 16px; }
+    .cdetail { display: flex; align-items: flex-start; gap: 14px; }
+    .cdetail-icon {
+      width: 42px; height: 42px; border-radius: 10px;
+      background: rgba(0,194,184,0.15); border: 1px solid rgba(0,194,184,0.25);
+      display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+    }
+    .cdetail-label { font-size: 0.72rem; color: var(--text3); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+    .cdetail-val { font-size: 0.92rem; color: #fff; font-weight: 500; }
+    .cdetail-val a:hover { color: var(--teal); }
+
+    /* form */
+    .quote-form {
+      background: var(--card); border: 1px solid var(--border2);
+      border-radius: var(--radius-lg); padding: 36px 32px;
+    }
+    .form-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 4px; }
+    .form-sub { font-size: 0.82rem; color: var(--text3); margin-bottom: 24px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+    .form-group label { font-size: 0.78rem; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; }
+    .form-group input, .form-group select, .form-group textarea {
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border2);
+      border-radius: 8px; padding: 11px 14px; color: #fff; font-size: 0.88rem;
+      font-family: 'Inter', sans-serif; transition: border-color 0.2s, background 0.2s;
+      outline: none;
+    }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: var(--text3); }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--teal); background: rgba(0,194,184,0.06);
+    }
+    .form-group select { cursor: pointer; }
+    .form-group select option { background: #0d1a2e; color: #fff; }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+    .form-success {
+      display: none; text-align: center; padding: 32px 20px;
+    }
+    .form-success .success-icon { font-size: 3rem; margin-bottom: 12px; }
+    .form-success h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; }
+    .form-success p { font-size: 0.88rem; color: var(--text2); }
+
+    /* ===== FOOTER ===== */
+    footer { background: #060d18; border-top: 1px solid var(--border); color: var(--text2); padding: 60px 48px 28px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 48px; max-width: 1200px; margin: 0 auto 48px; }
+    .footer-logo { margin-bottom: 16px; }
+    .footer-logo img { height: 60px; width: auto; }
+    .footer-brand p { font-size: 0.82rem; color: var(--text3); line-height: 1.7; margin-bottom: 20px; }
+    .social-links { display: flex; gap: 8px; }
+    .social-link {
+      display: flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px; background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border); border-radius: 8px;
+      font-size: 0.82rem; color: var(--text2); font-weight: 700; transition: all 0.2s;
+    }
+    .social-link:hover { background: var(--teal); color: #000; border-color: var(--teal); }
+    .footer-col h4 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #fff; margin-bottom: 18px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a { font-size: 0.83rem; color: var(--text3); transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--teal); }
+    .f-contact { display: flex; flex-direction: column; gap: 14px; }
+    .f-contact-item { display: flex; gap: 10px; font-size: 0.83rem; color: var(--text3); align-items: flex-start; }
+    .f-contact-icon { color: var(--teal); font-size: 1rem; margin-top: 1px; }
+    .footer-bottom {
+      max-width: 1200px; margin: 0 auto; padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 0.75rem; color: var(--text3);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1100px) {
+      .diff-grid { grid-template-columns: repeat(3, 1fr); }
+      .areas-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 900px) {
+      nav { padding: 0 20px; }
+      .nav-center { display: none; }
+      .hamburger { display: flex; }
+      section { padding: 60px 20px; }
+      #home { padding: 60px 20px; }
+      .hero-inner, .build-grid, .story-grid, .contact-grid { grid-template-columns: 1fr; }
+      .hero-card { max-width: 100%; }
+      #home h1 { font-size: 2.5rem; }
+      .trust-bar { grid-template-columns: repeat(2, 1fr); padding: 20px; }
+      .trust-item { border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+      .trust-item:last-child { border-bottom: none; }
+      .products-grid, .products-grid-4, .products-grid-2, .blog-grid, .reviews-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .trust-bar, .diff-grid, .footer-grid, .areas-grid { grid-template-columns: 1fr; }
+      #home h1 { font-size: 2rem; }
+      .contact-info h2 { font-size: 1.8rem; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .story-stats { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="nav-logo" href="#home">
+    <img src="logo.png" alt="Honest Water Co North Florida" />
+  </a>
+
+  <ul class="nav-center">
+    <li class="nav-item">
+      <a href="#products">Browse Products <span class="nav-arrow">▾</span></a>
+      <div class="dropdown">
+        <a href="#products">Whole Home Systems</a>
+        <a href="#products">Drinking Water Systems</a>
+        <a href="#products">Add-ons</a>
+      </div>
+    </li>
+    <li class="nav-item"><a href="#service-areas">Service Areas</a></li>
+    <li class="nav-item"><a href="#our-story">Our Story</a></li>
+    <li class="nav-item"><a href="#gallery">Gallery</a></li>
+    <li class="nav-item"><a href="#testimonials">Testimonials</a></li>
+    <li class="nav-item"><a href="#blog">Blogs</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <a class="nav-phone" href="tel:4079721262">(407) 972-1262</a>
+    <a href="#contact" class="btn btn-teal">Quick Quote</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home" class="mobile-link">Home</a>
+  <a href="#products" class="mobile-link">Browse Products</a>
+  <a href="#service-areas" class="mobile-link">Service Areas</a>
+  <a href="#our-story" class="mobile-link">Our Story</a>
+  <a href="#gallery" class="mobile-link">Gallery</a>
+  <a href="#testimonials" class="mobile-link">Testimonials</a>
+  <a href="#blog" class="mobile-link">Blogs</a>
+  <a href="#faq" class="mobile-link">FAQ</a>
+  <a href="#contact" class="btn btn-teal btn-lg mobile-cta">Get a Quote</a>
+</div>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-badge">Official Honest Water Co — North Florida</div>
+      <h1>Clean, Soft Water<br>for Every <span class="accent">Florida</span><br>Home</h1>
+      <p class="hero-sub">Is hard water damaging your appliances, drying out your skin, and leaving mineral stains everywhere? We solve it — permanently — with NSF-certified systems backed by a lifetime warranty.</p>
+      <ul class="pain-list">
+        <li><span class="pain-x">✕</span> Dry, itchy skin after every shower</li>
+        <li><span class="pain-x">✕</span> Spotty dishes &amp; mineral-stained fixtures</li>
+        <li><span class="pain-x">✕</span> Chlorine smell in your tap water</li>
+        <li><span class="pain-x">✕</span> Hard water destroying your appliances</li>
+      </ul>
+      <div class="hero-btns">
+        <a href="#contact" class="btn btn-teal btn-lg">Get a Quote</a>
+        <a href="#products" class="btn btn-outline btn-lg">View Solutions →</a>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <div class="hcard-title">Complete Home System</div>
+      <div class="hcard-sub">Our Best-Selling Package</div>
+      <div class="hcard-price-old">$4,599</div>
+      <div class="hcard-price">$2,995</div>
+      <span class="hcard-save">Save up to 40% — Limited Time</span>
+      <ul class="hcard-list">
+        <li><span class="hcard-check">✓</span> Whole-home softener + carbon filtration</li>
+        <li><span class="hcard-check">✓</span> NSF-certified resin &amp; polishing gravel</li>
+        <li><span class="hcard-check">✓</span> Removes hardness, chlorine &amp; contaminants</li>
+        <li><span class="hcard-check">✓</span> Professional installation included</li>
+        <li><span class="hcard-check">✓</span> Lifetime warranty on system &amp; media bed</li>
+      </ul>
+      <div class="hcard-badge">
+        <span style="font-size:1.5rem">🇺🇸</span>
+        <div class="hcard-badge-text">
+          <strong>Assembled in the USA</strong>
+          1,000+ successful installs nationally
+        </div>
+      </div>
+      <a href="#contact" class="btn btn-teal btn-full">Get a Quote</a>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item">
+    <div class="trust-icon">🛡️</div>
+    <div class="trust-title">Lifetime Warranty</div>
+    <div class="trust-desc">Clean water for life, guaranteed</div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">🔧</div>
+    <div class="trust-title">Free Installation</div>
+    <div class="trust-desc">Professional install included</div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">⭐</div>
+    <div class="trust-title">100+ 5-Star Reviews</div>
+    <div class="trust-desc">Trusted by Florida families</div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">✅</div>
+    <div class="trust-title">BBB Accredited</div>
+    <div class="trust-desc">Family-owned Florida business</div>
+  </div>
+</div>
+
+<!-- BUILD / BEST SELLER -->
+<section id="build">
+  <div class="container">
+    <div class="build-grid">
+      <div>
+        <div class="section-label">Best Seller</div>
+        <h2 class="section-title">How We Build Our Most Popular System</h2>
+        <p class="section-desc">Remove Hardness, Chlorine, and Countless other Contaminants Every Time, Honestly.</p>
+        <div class="price-old">$4,599</div>
+        <div class="price-new">$2,995</div>
+        <span class="price-tag">🏆 Complete Home System Package</span>
+        <ul class="build-list">
+          <li>14 lbs NSF Certified polishing gravel for superior filtration</li>
+          <li>50 lbs 10% food grade NSF certified softening resin (USA-sourced)</li>
+          <li>14 lbs naturally sourced NSF certified granular activated carbon</li>
+          <li>Professional installation by certified technicians</li>
+          <li>Lifetime warranty on all components</li>
+        </ul>
+        <a href="#contact" class="btn btn-teal btn-lg">Get This System</a>
+      </div>
+      <div class="build-visual">
+        <img src="https://honestwaterco.com/wp-content/uploads/2025/11/679ffcc580cfb29290b8cdfa_tank-website.png" alt="Complete Home Water System" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="container">
+    <div class="section-label">Our Systems</div>
+    <h2 class="section-title">Water Solutions for Every Home</h2>
+    <p class="section-desc">NSF-certified systems professionally installed — everything you need for clean, safe water in North Florida.</p>
+
+    <!-- TABS -->
+    <div class="prod-tabs">
+      <button class="prod-tab active" onclick="switchTab('whole-home', this)">🏠 Whole Home Systems</button>
+      <button class="prod-tab" onclick="switchTab('drinking', this)">🚰 Drinking Water Systems</button>
+      <button class="prod-tab" onclick="switchTab('addons', this)">➕ Add-ons &amp; Accessories</button>
+    </div>
+
+    <!-- WHOLE HOME SYSTEMS -->
+    <div class="tab-panel active" id="tab-whole-home">
+      <div class="products-grid-4">
+
+        <div class="product-card">
+          <div class="prod-badge badge-bestseller">⭐ Best Seller</div>
+          <div class="product-img">
+            <img src="https://www.blackfinwaterco.com/Product%20Images/Whole%20Home%20Water%20System%20BFWC.png" alt="Complete Home System" />
+          </div>
+          <div class="product-body">
+            <div class="prod-tag">Softener + Carbon Filtration in one</div>
+            <div class="product-name">Complete Home System</div>
+            <p class="product-desc">Our most complete whole-home system. A high-capacity water softener paired with granular activated carbon filtration, removing hardness, chlorine, chemicals, and odor in one install.</p>
+            <ul class="product-features">
+              <li>Removes hardness &amp; chlorine</li>
+              <li>Reduces chemicals &amp; odors</li>
+              <li>Single-install solution</li>
+              <li>Lifetime warranty included</li>
+            </ul>
+            <a href="#contact" class="btn btn-teal btn-sm" data-product="Complete Home System">Get a Quote</a>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="prod-badge badge-popular">🔥 Most Popular</div>
+          <div class="product-img">
+            <img src="https://www.blackfinwaterco.com/Product%20Images/Water%20Softener%20with%20Chlorine%20Filtration%20BFWC.png" alt="Water Softener with Chlorine Filtration" />
+          </div>
+          <div class="product-body">
+            <div class="prod-tag">Softener + Chlorine Filter</div>
+            <div class="product-name">Water Softener with Chlorine Filtration</div>
+            <p class="product-desc">Addresses the two most common water issues in Florida: hardness and chlorine. Removes calcium and magnesium while filtering out chlorine taste, odor, and skin-drying effects.</p>
+            <ul class="product-features">
+              <li>Softer skin and hair</li>
+              <li>No more chlorine taste or smell</li>
+              <li>Protects appliances &amp; pipes</li>
+              <li>Programmable settings</li>
+            </ul>
+            <a href="#contact" class="btn btn-teal btn-sm" data-product="Water Softener with Chlorine Filtration">Get a Quote</a>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="prod-badge badge-saltfree">🌿 Salt Free</div>
+          <div class="product-img">
+            <img src="https://www.blackfinwaterco.com/Product%20Images/Whole%20Home%20Water%20Filter%20BFWC.png" alt="Whole Home Water Filter" />
+          </div>
+          <div class="product-body">
+            <div class="prod-tag">No Salt · No Chemicals · No Maintenance</div>
+            <div class="product-name">Whole Home Water Filter</div>
+            <p class="product-desc">Improves water quality throughout your entire home by targeting sediment, dirt, rust, and particulate matter — with zero salt, zero chemicals, and zero maintenance.</p>
+            <ul class="product-features">
+              <li>Zero salt or chemicals needed</li>
+              <li>Removes sediment &amp; rust</li>
+              <li>Maintenance-free operation</li>
+              <li>Eco-friendly solution</li>
+            </ul>
+            <a href="#contact" class="btn btn-teal btn-sm" data-product="Whole Home Water Filter">Get a Quote</a>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="prod-badge badge-classic">💎 Classic</div>
+          <div class="product-img">
+            <img src="https://www.blackfinwaterco.com/Product%20Images/Whole%20Home%20Water%20Softener%20BFWC.png" alt="Whole Home Water Softener" />
+          </div>
+          <div class="product-body">
+            <div class="prod-tag">WQA Gold Seal Certified</div>
+            <div class="product-name">Whole Home Water Softener</div>
+            <p class="product-desc">The gold standard in hard water treatment. WQA Gold Seal Award-winning resin technology delivers 100% soft water throughout your home with a self-cleaning, low-maintenance design.</p>
+            <ul class="product-features">
+              <li>WQA Gold Seal certified</li>
+              <li>100% soft water whole-home</li>
+              <li>Self-cleaning technology</li>
+              <li>Low-maintenance design</li>
+            </ul>
+            <a href="#contact" class="btn btn-teal btn-sm" data-product="Whole Home Water Softener">Get a Quote</a>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="prod-badge badge-eco">🌿 Eco Choice</div>
+          <div class="product-img">
+            <img src="https://www.blackfinwaterco.com/Product%20Images/Whole%20Home%20Salt%20Free%20Conditioner%20BFWC.png" alt="Whole Home Salt Free Conditioner" />
+          </div>
+          <div class="product-body">
+            <div class="prod-tag">No salt. No chemicals. Just conditioned water.</div>
+            <div class="product-name">Whole Home Salt Free Conditioner</div>
+            <p class="product-desc">Conditions hard water minerals to prevent scale buildup — without salt or chemicals. Mineral transformation technology changes how minerals behave so they don't stick to surfaces or appliances.</p>
+            <ul class="product-features">
+              <li>Zero salt or chemicals</li>
+              <li>Eliminates scale buildup</li>
+              <li>Zero maintenance</li>
+              <li>Optional chlorine removal</li>
+            </ul>
+            <a href="#contact" class="btn btn-teal btn-sm" data-product="Whole Home Salt Free Conditioner">Get a Quote</a>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="prod-badge badge-max">🛡️ Maximum Protection</div>
+          <div class="product-img">
+            <img src="https://www.blackfinwaterco.com/Product%20Images/City%20Water%20Dual%20Tank%20BFWC.png" alt="City Water Dual Tank System" />
+          </div>
+          <div class="product-body">
+            <div class="prod-tag">Two-stage treatment for city water.</div>
+            <div class="product-name">City Water Dual Tank System</div>
+            <p class="product-desc">Our most thorough city water package. Dual tanks tackle chlorine, sediment, and mineral buildup in two dedicated stages — covering everything city water throws at your plumbing.</p>
+            <ul class="product-features">
+              <li>Two-stage filtration</li>
+              <li>Municipal water treatment</li>
+              <li>100% soft water</li>
+              <li>Self-cleaning design</li>
+            </ul>
+            <a href="#contact" class="btn btn-teal btn-sm" data-product="City Water Dual Tank System">Get a Quote</a>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="prod-badge badge-well">💧 Well Water</div>
+          <div class="product-img">
+            <img src="https://www.blackfinwaterco.com/Product%20Images/Well%20Water%20Dual%20Tank%20BFWC.png" alt="Well Water Dual Tank System" />
+          </div>
+          <div class="product-body">
+            <div class="prod-tag">Built for the unique challenges of well water.</div>
+            <div class="product-name">Well Water Dual Tank System</div>
+            <p class="product-desc">Designed specifically for private well water. Addresses sediment, iron, sulfur odors, and naturally occurring contaminants through staged treatment engineered for Florida's well water conditions.</p>
+            <ul class="product-features">
+              <li>Removes iron &amp; sulfur</li>
+              <li>Handles sediment</li>
+              <li>Built for well water</li>
+              <li>Self-cleaning smart system</li>
+            </ul>
+            <a href="#contact" class="btn btn-teal btn-sm" data-product="Well Water Dual Tank System">Get a Quote</a>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="prod-badge badge-specialty">⚗️ Specialty</div>
+          <div class="product-img">
+            <img src="https://www.blackfinwaterco.com/Product%20Images/Home%20Iron%20and%20Sulfur%20Removal%20System%20BFWC.png" alt="Iron & Sulfur Removal System" />
+          </div>
+          <div class="product-body">
+            <div class="prod-tag">Rotten egg smell? Rust stains? Fixed.</div>
+            <div class="product-name">Iron &amp; Sulfur Removal System</div>
+            <p class="product-desc">Addresses iron, hydrogen sulfide (sulfur), and related odors using oxidation and specialized catalytic media. Converts contaminants into filterable particles — leaving your water clean and odor-free.</p>
+            <ul class="product-features">
+              <li>Eliminates sulfur scent</li>
+              <li>Removes iron staining</li>
+              <li>Handles high concentrations</li>
+              <li>Complete turnkey system</li>
+            </ul>
+            <a href="#contact" class="btn btn-teal btn-sm" data-product="Iron & Sulfur Removal System">Get a Quote</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- DRINKING WATER SYSTEMS -->
+    <div class="tab-panel" id="tab-drinking">
+      <div class="products-grid-2">
+
+        <div class="product-card">
+          <div class="prod-badge badge-toprated">⭐ Top Rated</div>
+          <div class="product-img">
+            <img src="https://www.blackfinwaterco.com/Product%20Images/HWC%20ALKAPRO%20800%20BFWC%20Final%20(2).png" alt="AlkaPro 800 Tankless RO" />
+          </div>
+          <div class="product-body">
+            <div class="prod-tag">Our smartest, most capable drinking water system</div>
+            <div class="product-name">AlkaPro 800 Tankless RO</div>
+            <p class="product-desc">800 GPD tankless design means instant filtered water without a bulky storage tank. Removes heavy metals, chlorine, dissolved solids, and more — delivering ultra-pure water straight from your tap.</p>
+            <ul class="product-features">
+              <li>800 GPD filtration capacity</li>
+              <li>Removes heavy metals &amp; chlorine</li>
+              <li>Removes dissolved solids</li>
+              <li>Space-saving tankless design</li>
+            </ul>
+            <a href="#contact" class="btn btn-teal btn-sm" data-product="AlkaPro 800 Tankless RO">Get a Quote</a>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="prod-badge badge-classicro">💧 Classic RO</div>
+          <div class="product-img">
+            <img src="https://www.blackfinwaterco.com/Product%20Images/5%20Stage%20RO%20BFWC.png" alt="5 Stage Reverse Osmosis" />
+          </div>
+          <div class="product-body">
+            <div class="prod-tag">Reliable, time-tested filtration</div>
+            <div class="product-name">5 Stage Reverse Osmosis</div>
+            <p class="product-desc">Reverse osmosis filtration through five dedicated stages. Removes sediment, chlorine, and dissolved impurities, delivering crystal-clear drinking water at your dedicated faucet.</p>
+            <ul class="product-features">
+              <li>5-stage filtration design</li>
+              <li>Crystal-clear taste &amp; quality</li>
+              <li>Reliable performance</li>
+              <li>Easy filter replacement</li>
+            </ul>
+            <a href="#contact" class="btn btn-teal btn-sm" data-product="5 Stage Reverse Osmosis">Get a Quote</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ADD-ONS -->
+    <div class="tab-panel" id="tab-addons">
+      <div class="products-grid-4">
+
+        <div class="product-card">
+          <div class="prod-badge badge-chemical">✨ Chemical Free</div>
+          <div class="product-img">
+            <img src="https://www.blackfinwaterco.com/Product%20Images/Whole%20Home%20UV%20BFWC.png" alt="Whole Home UV Purifier" />
+          </div>
+          <div class="product-body">
+            <div class="prod-tag">Neutralizes bacteria at the point of entry</div>
+            <div class="product-name">Whole Home UV Purifier</div>
+            <p class="product-desc">UV light eliminates 99.9% of bacteria and microorganisms as water enters your home — no chemicals, no byproducts, nothing added to your water. Stainless steel, high-flow design with a spare UV bulb included.</p>
+            <ul class="product-features">
+              <li>Eliminates 99.9% of bacteria</li>
+              <li>No chemicals or byproducts</li>
+              <li>Works with any system</li>
+              <li>Easy lamp replacement</li>
+            </ul>
+            <a href="#contact" class="btn btn-teal btn-sm" data-product="Whole Home UV Purifier">Get a Quote</a>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="prod-badge badge-protector">🛡️ System Protector</div>
+          <div class="product-img">
+            <img src="https://www.blackfinwaterco.com/Product%20Images/Pre%20Sediment%20Filter%20BFWC.png" alt="Pre-Sediment Filter" />
+          </div>
+          <div class="product-body">
+            <div class="prod-tag">Stop dirt, rust, and sand before they cause damage</div>
+            <div class="product-name">Pre-Sediment Filter</div>
+            <p class="product-desc">Intercepts dirt, sand, rust, and particulate matter at the point of entry — before they reach your plumbing, fixtures, or any downstream treatment equipment. Cleaner flow, less wear on everything it feeds.</p>
+            <ul class="product-features">
+              <li>Protects downstream filters</li>
+              <li>Extends system lifespan</li>
+              <li>Easy filter change</li>
+              <li>Clean, reliable flow</li>
+            </ul>
+            <a href="#contact" class="btn btn-teal btn-sm" data-product="Pre-Sediment Filter">Get a Quote</a>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="prod-badge badge-outdoor">🪨 Outdoor Install</div>
+          <div class="product-img">
+            <img src="https://honestwaterco.com/wp-content/uploads/2026/01/unnamed-e1768588590331-300x264.webp" alt="Faux Rock Enclosure" />
+          </div>
+          <div class="product-body">
+            <div class="prod-tag">Ask for pricing</div>
+            <div class="product-name">Faux Rock Enclosure</div>
+            <p class="product-desc">A hollow faux rock designed to conceal outdoor water treatment systems while protecting them from weather and UV exposure. Looks completely natural and blends seamlessly into landscaping.</p>
+            <ul class="product-features">
+              <li>Protects from weather &amp; UV</li>
+              <li>Natural rock appearance</li>
+              <li>Blends into landscaping</li>
+              <li>Professional finish</li>
+            </ul>
+            <a href="#contact" class="btn btn-teal btn-sm" data-product="Faux Rock Enclosure">Ask for Pricing</a>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="prod-badge badge-outdoor">🏠 Outdoor Install</div>
+          <div class="product-img">
+            <img src="https://honestwaterco.com/wp-content/uploads/2026/01/dd8445cb-0578-43a9-bbae-ed7ded12bf7b-e1768589812498-292x300.jpg" alt="System Shed Enclosure" />
+          </div>
+          <div class="product-body">
+            <div class="prod-tag">Ask for pricing</div>
+            <div class="product-name">System Shed Enclosure</div>
+            <p class="product-desc">A clean, structured shed enclosure for outdoor water treatment systems. Keeps equipment protected from the elements, organized, and easily accessible for maintenance.</p>
+            <ul class="product-features">
+              <li>Secure outdoor housing</li>
+              <li>Easy maintenance access</li>
+              <li>Clean, attractive appearance</li>
+              <li>Weather-resistant build</li>
+            </ul>
+            <a href="#contact" class="btn btn-teal btn-sm" data-product="System Shed Enclosure">Ask for Pricing</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why-us">
+  <div class="container">
+    <div class="text-center" style="margin-bottom: 48px;">
+      <div class="section-label">Why Choose Us</div>
+      <h2 class="section-title">Built Different. Built Better.</h2>
+    </div>
+    <div class="diff-grid">
+      <div class="diff-item">
+        <div class="diff-icon">🏅</div>
+        <div class="diff-title">Quality Certified</div>
+        <div class="diff-desc">All products NSF Certified, Pressure Tested, and Professionally Installed</div>
+      </div>
+      <div class="diff-item">
+        <div class="diff-icon">🤠</div>
+        <div class="diff-title">Texas Manufacturing</div>
+        <div class="diff-desc">Systems designed for Florida — known for hard water, chlorine, and mineral buildup</div>
+      </div>
+      <div class="diff-item">
+        <div class="diff-icon">🏡</div>
+        <div class="diff-title">Total Home Solution</div>
+        <div class="diff-desc">Whole Home Treatment, Drinking Water Solutions, Leak Prevention Available</div>
+      </div>
+      <div class="diff-item">
+        <div class="diff-icon">⚗️</div>
+        <div class="diff-title">Proven Filtration</div>
+        <div class="diff-desc">Rigid quality control and testing — results included in every system's packaging</div>
+      </div>
+      <div class="diff-item">
+        <div class="diff-icon">💰</div>
+        <div class="diff-title">Affordable Price</div>
+        <div class="diff-desc">Best pricing with the highest quality equipment in the industry</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OUR STORY -->
+<section id="our-story">
+  <div class="container">
+    <div class="story-grid">
+      <div>
+        <div class="section-label">Our Story</div>
+        <h2 class="section-title">Family-Owned, Texas-Proud</h2>
+        <p class="section-desc">Founded in 2021, Honest Water Co was built on a single promise: deliver the best water quality at the most honest price. We saw too many families overpaying for inferior systems or being sold products they didn't need.</p>
+        <p style="font-size:0.92rem; color:var(--text2); line-height:1.7; margin-bottom:24px;">We're a family-owned business dedicated to providing Florida homes with the highest quality water filtration systems. Our commitment to health, wellness, and sustainability drives everything we do — from the NSF-certified materials we use to the way we treat every customer like a neighbor.</p>
+        <a href="#contact" class="btn btn-teal btn-lg">Talk to Our Team</a>
+        <div class="story-stats">
+          <div class="stat-card">
+            <div class="stat-num">1,000+</div>
+            <div class="stat-label">Successful Installations</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">4</div>
+            <div class="stat-label">Florida Counties Served</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">100+</div>
+            <div class="stat-label">5-Star Reviews</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">2021</div>
+            <div class="stat-label">Est. Sanford, FL</div>
+          </div>
+        </div>
+      </div>
+      <div class="story-img">
+        <img src="https://honestwaterco.com/wp-content/uploads/2025/11/66dc102894e5c39337ac4c3b_Artboard.webp" alt="Our Story" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE AREAS -->
+<section id="service-areas">
+  <div class="container">
+    <div class="text-center" style="margin-bottom: 48px;">
+      <div class="section-label">Where We Serve</div>
+      <h2 class="section-title">Serving North &amp; Central Florida</h2>
+      <p class="section-desc" style="margin-left:auto;margin-right:auto;">We provide water filtration and installation services across the greater Orlando and North Florida region, with same-week appointments available.</p>
+    </div>
+    <div class="areas-grid">
+      <div class="area-card">
+        <div class="area-icon">📍</div>
+        <div class="area-name">Seminole County</div>
+        <div class="area-cities">Sanford, Altamonte Springs, Casselberry, Lake Mary, Longwood, Oviedo, Winter Springs</div>
+      </div>
+      <div class="area-card">
+        <div class="area-icon">📍</div>
+        <div class="area-name">Orange County</div>
+        <div class="area-cities">Orlando, Apopka, Winter Garden, Ocoee, Winter Park, Windermere, Maitland</div>
+      </div>
+      <div class="area-card">
+        <div class="area-icon">📍</div>
+        <div class="area-name">Volusia County</div>
+        <div class="area-cities">Daytona Beach, DeLand, Deltona, Ormond Beach, Port Orange, New Smyrna</div>
+      </div>
+      <div class="area-card">
+        <div class="area-icon">📍</div>
+        <div class="area-name">Lake County</div>
+        <div class="area-cities">Leesburg, Clermont, Eustis, Tavares, Mount Dora, Lady Lake, Fruitland Park</div>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:36px;">
+      <p style="color:var(--text3); font-size:0.88rem; margin-bottom:16px;">Not sure if we cover your area? Give us a call.</p>
+      <a href="tel:4079721262" class="btn btn-teal btn-lg">📞 (407) 972-1262</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="container">
+    <div class="text-center" style="margin-bottom: 48px;">
+      <div class="section-label">What Customers Say</div>
+      <h2 class="section-title">100+ Five-Star Reviews</h2>
+      <p class="section-desc">Real results from real Texas families who switched to Honest Water Co.</p>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"Our water used to leave white residue everywhere — sinks, showers, the coffee maker. Within a week of installation, everything was crystal clear. The team was professional, fast, and explained everything. Best investment we've made for our home."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">SM</div>
+          <div>
+            <div class="reviewer-name">Sarah M.</div>
+            <div class="reviewer-location">Sanford, FL</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"I was skeptical at first but the difference is night and day. My skin doesn't feel dry anymore, the dishes come out spotless, and the water just tastes clean. Installation was done in under 3 hours. Honest Water Co earned a customer for life."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">RJ</div>
+          <div>
+            <div class="reviewer-name">Robert J.</div>
+            <div class="reviewer-location">Orlando, FL</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"We've had our system for 8 months and it's been flawless. Our water heater is running more efficiently, soap lathers way better, and we stopped buying bottled water entirely. The lifetime warranty gave us total peace of mind. Highly recommend!"</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">LK</div>
+          <div>
+            <div class="reviewer-name">Linda K.</div>
+            <div class="reviewer-location">Lake Mary, FL</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="container">
+    <div class="text-center" style="margin-bottom: 40px;">
+      <div class="section-label">Our Work</div>
+      <h2 class="section-title">1,000+ Successful Installations Across Florida</h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item" onclick="openLightbox(0)"><img src="https://honestwaterco.com/wp-content/uploads/2025/11/68dd9a74e6d6d7c5607f3893_IMG_0796-768x1024.jpeg" alt="Installation 1" /></div>
+      <div class="gallery-item" onclick="openLightbox(1)"><img src="https://honestwaterco.com/wp-content/uploads/2025/11/68dd966425f04417026c311b_IMG_1721-e1773938835339-753x1024.jpeg" alt="Installation 2" /></div>
+      <div class="gallery-item" onclick="openLightbox(2)"><img src="https://honestwaterco.com/wp-content/uploads/2025/11/68dd977deaa985f4c4f0b550_IMG_0755-768x1024.jpeg" alt="Installation 3" /></div>
+      <div class="gallery-item" onclick="openLightbox(3)"><img src="https://honestwaterco.com/wp-content/uploads/2025/11/68dd977d88738263d4a4189c_PHOTO-2025-08-20-13-39-38-768x1024.jpg" alt="Installation 4" /></div>
+      <div class="gallery-item" onclick="openLightbox(4)"><img src="https://honestwaterco.com/wp-content/uploads/2025/11/68dd96a27cfd9fbdb926fb53_IMG_2482.jpeg" alt="Installation 5" /></div>
+      <div class="gallery-item" onclick="openLightbox(5)"><img src="https://honestwaterco.com/wp-content/uploads/2026/03/20260314_122945-rotated-e1773939116196-761x1024.jpg" alt="Installation 6" /></div>
+      <div class="gallery-item" onclick="openLightbox(6)"><img src="https://honestwaterco.com/wp-content/uploads/2026/03/20260312_132817-rotated-e1773939088179-772x1024.jpg" alt="Installation 7" /></div>
+      <div class="gallery-item" onclick="openLightbox(7)"><img src="https://honestwaterco.com/wp-content/uploads/2026/03/20260304_121159-rotated-e1773939303245-774x1024.jpg" alt="Installation 8" /></div>
+      <div class="gallery-item" onclick="openLightbox(8)"><img src="https://honestwaterco.com/wp-content/uploads/2026/03/20260228_112455-768x1024.jpg" alt="Installation 9" /></div>
+      <div class="gallery-item" onclick="openLightbox(9)"><img src="https://honestwaterco.com/wp-content/uploads/2026/03/IMG_0752-768x1024.jpeg" alt="Installation 10" /></div>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  <button class="lb-prev" onclick="lbPrev()">‹</button>
+  <img id="lbImg" src="" alt="" />
+  <button class="lb-next" onclick="lbNext()">›</button>
+</div>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="text-center" style="margin-bottom: 48px;">
+      <div class="section-label">FAQ</div>
+      <h2 class="section-title">Common Questions</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">What is a whole-home water filtration system? <span class="faq-icon">+</span></div>
+        <div class="faq-a">A whole-home water filtration system filters the water at the main point of entry, ensuring clean, filtered water is available throughout your entire home for drinking, cooking, bathing, and cleaning.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">How does reverse osmosis work? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Reverse osmosis pushes water through a semi-permeable membrane that removes up to 99% of contaminants including heavy metals, chemicals, bacteria, and dissolved solids — leaving you with pure, great-tasting water.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">How often should I replace the filters? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Filter replacement schedules vary by system and usage, but most whole-home systems require maintenance every 6–12 months. Our team will walk you through the specific schedule for your system at installation.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Why should I choose a water filtration system for my home? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Filtered water protects your family's health, extends the life of appliances, makes skin and hair softer, and eliminates the cost and waste of bottled water. Florida's water is notorious for hardness, chlorine, and contaminants — filtration is essential.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">What contaminants does your filtration system remove? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Our systems remove chlorine, chloramines, lead, arsenic, nitrates, bacteria, hard minerals (calcium, magnesium), sediment, VOCs, and hundreds of other contaminants — all certified by NSF standards.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Will the filtration system affect my water pressure? <span class="faq-icon">+</span></div>
+        <div class="faq-a">No. Our systems are engineered to maintain your home's normal water pressure. In many cases, removing sediment and buildup actually improves pressure throughout your plumbing.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section id="blog">
+  <div class="container">
+    <div class="section-label">Our Blogs</div>
+    <h2 class="section-title">News and Tips from Honest Water Co</h2>
+    <p class="section-desc" style="margin-bottom:36px;">Stay informed about water quality, filtration tips, and healthy living for Florida homeowners.</p>
+    <div class="blog-grid">
+      <div class="blog-card">
+        <div class="blog-img"><img src="https://honestwaterco.com/wp-content/uploads/2025/11/68d5aa90d66dcf6c533e5990_Untitled-design-81-1024x1024.png" alt="Water Filtration in Texas" /></div>
+        <div class="blog-body">
+          <span class="blog-category">Water Safety</span>
+          <div class="blog-title">The Importance of Water Filtration in Texas Homes</div>
+          <div class="blog-date">Nov 14, 2025</div>
+        </div>
+      </div>
+      <div class="blog-card">
+        <div class="blog-img"><img src="https://honestwaterco.com/wp-content/uploads/2025/11/66dc102894e5c39337ac4c3b_Artboard.webp" alt="5 Signs You Need Filtration" /></div>
+        <div class="blog-body">
+          <span class="blog-category">Clean Living</span>
+          <div class="blog-title">5 Signs You Need a Home Water Filtration System</div>
+          <div class="blog-date">Nov 14, 2025</div>
+        </div>
+      </div>
+      <div class="blog-card">
+        <div class="blog-img"><img src="https://honestwaterco.com/wp-content/uploads/2025/11/68d5aa90d66dcf6c533e5990_Untitled-design-81-1.png" alt="Water Quality and Skin" /></div>
+        <div class="blog-body">
+          <span class="blog-category">Clean Living</span>
+          <div class="blog-title">How Water Quality Affects Your Skin and Hair</div>
+          <div class="blog-date">Nov 14, 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / QUOTE FORM -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="section-label">Get a Quote</div>
+        <h2>Ready for Pure Water?</h2>
+        <p>Fill out the form and our team will reach out within 24 hours with a free, no-obligation quote tailored to your home's needs.</p>
+        <div class="contact-details">
+          <div class="cdetail">
+            <div class="cdetail-icon">📞</div>
+            <div>
+              <div class="cdetail-label">Phone</div>
+              <div class="cdetail-val"><a href="tel:4079721262">(407) 972-1262</a></div>
+            </div>
+          </div>
+          <div class="cdetail">
+            <div class="cdetail-icon">✉️</div>
+            <div>
+              <div class="cdetail-label">Email</div>
+              <div class="cdetail-val"><a href="mailto:info@honestwaternfl.com">info@honestwaternfl.com</a></div>
+            </div>
+          </div>
+          <div class="cdetail">
+            <div class="cdetail-icon">📍</div>
+            <div>
+              <div class="cdetail-label">Address</div>
+              <div class="cdetail-val">411 W 1st Street, #1061<br>Sanford, FL 32771</div>
+            </div>
+          </div>
+          <div class="cdetail">
+            <div class="cdetail-icon">🕐</div>
+            <div>
+              <div class="cdetail-label">Hours</div>
+              <div class="cdetail-val">Mon–Sat: 8am – 6pm<br>Sun: By appointment</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quote-form">
+        <div id="formContent">
+          <div class="form-title">Request a Free Quote</div>
+          <div class="form-sub">We'll get back to you within 24 hours.</div>
+          <form id="quoteForm" onsubmit="submitForm(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label>First Name *</label>
+                <input type="text" id="firstName" placeholder="John" required />
+              </div>
+              <div class="form-group">
+                <label>Last Name *</label>
+                <input type="text" id="lastName" placeholder="Smith" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Phone *</label>
+                <input type="tel" id="phone" placeholder="(817) 000-0000" required />
+              </div>
+              <div class="form-group">
+                <label>Email *</label>
+                <input type="email" id="email" placeholder="john@email.com" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>City / Zip Code</label>
+              <input type="text" id="city" placeholder="Sanford, FL 32771" />
+            </div>
+            <div class="form-group">
+              <label>Interested In</label>
+              <select id="interest">
+                <option value="">Select a system...</option>
+                <optgroup label="Whole Home Systems">
+                  <option value="Complete Home System">Complete Home System (Best Seller)</option>
+                  <option value="Water Softener with Chlorine Filtration">Water Softener with Chlorine Filtration</option>
+                  <option value="Whole Home Water Filter">Whole Home Water Filter (Salt Free)</option>
+                  <option value="Whole Home Water Softener">Whole Home Water Softener (Classic)</option>
+                  <option value="Whole Home Salt Free Conditioner">Whole Home Salt Free Conditioner</option>
+                  <option value="City Water Dual Tank System">City Water Dual Tank System</option>
+                  <option value="Well Water Dual Tank System">Well Water Dual Tank System</option>
+                  <option value="Iron & Sulfur Removal System">Iron &amp; Sulfur Removal System</option>
+                </optgroup>
+                <optgroup label="Drinking Water Systems">
+                  <option value="AlkaPro 800 Tankless RO">AlkaPro 800 Tankless RO (Top Rated)</option>
+                  <option value="5 Stage Reverse Osmosis">5 Stage Reverse Osmosis</option>
+                </optgroup>
+                <optgroup label="Add-ons & Accessories">
+                  <option value="Whole Home UV Purifier">Whole Home UV Purifier</option>
+                  <option value="Pre-Sediment Filter">Pre-Sediment Filter</option>
+                  <option value="Faux Rock Enclosure">Faux Rock Enclosure</option>
+                  <option value="System Shed Enclosure">System Shed Enclosure</option>
+                </optgroup>
+                <option value="Not sure">Not sure — help me choose</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Tell Us About Your Water Issues</label>
+              <textarea id="message" placeholder="e.g. Hard water stains, chlorine smell, dry skin..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-teal btn-lg btn-full">Send Quote Request →</button>
+          </form>
+        </div>
+        <div class="form-success" id="formSuccess">
+          <div class="success-icon">✅</div>
+          <h3>Quote Request Sent!</h3>
+          <p>Thanks! A member of our team will reach out to you within 24 hours with your free, no-obligation quote.</p>
+          <br>
+          <a href="tel:4079721262" class="btn btn-teal">📞 Call Us Now: (407) 972-1262</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <img src="logo.png" alt="Honest Water Co North Florida" />
+      </div>
+      <p>Founded on the promise of purity, Honest Water Co is a family-owned business dedicated to providing Florida homes with the highest quality water filtration systems. Our commitment to health, wellness, and sustainability drives us to deliver clean, safe water you can trust.</p>
+      <div class="social-links">
+        <a class="social-link" href="https://facebook.com" target="_blank" rel="noopener">f</a>
+        <a class="social-link" href="https://tiktok.com" target="_blank" rel="noopener">tt</a>
+        <a class="social-link" href="https://instagram.com" target="_blank" rel="noopener">ig</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#service-areas">Service Areas</a></li>
+        <li><a href="#our-story">Our Story</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#blog">Blogs</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="#products">Whole Home Systems</a></li>
+        <li><a href="#products">Drinking Water Systems</a></li>
+        <li><a href="#products">Add-ons</a></li>
+        <li><a href="#build">Best Seller Package</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact Us</h4>
+      <div class="f-contact">
+        <div class="f-contact-item">
+          <span class="f-contact-icon">📞</span>
+          <a href="tel:4079721262">(407) 972-1262</a>
+        </div>
+        <div class="f-contact-item">
+          <span class="f-contact-icon">✉️</span>
+          <a href="mailto:info@honestwaternfl.com">info@honestwaternfl.com</a>
+        </div>
+        <div class="f-contact-item">
+          <span class="f-contact-icon">📍</span>
+          <span>411 W 1st Street, #1061<br>Sanford, FL 32771</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Best Water Co, Inc. dba Honest Water Co - North Florida. Official Honest Water Co Dealer. All rights reserved.</span>
+    <span>Sanford, FL 32771 · North Florida</span>
+  </div>
+</footer>
+
+<script src="/content-loader.js"></script>
+<script>
+  // ── Mobile menu ──
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+  document.querySelectorAll('.mobile-link, .mobile-cta').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // ── Active nav link on scroll ──
+  const sections = ['home','build','products','why-us','our-story','service-areas','testimonials','gallery','faq','blog','contact'];
+  const navLinks = document.querySelectorAll('.nav-center .nav-item > a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - 100) current = id;
+    });
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+    });
+  });
+
+  // ── FAQ accordion ──
+  function toggleFaq(el) {
+    const answer = el.nextElementSibling;
+    const isOpen = el.classList.contains('open');
+    document.querySelectorAll('.faq-q.open').forEach(q => {
+      q.classList.remove('open');
+      q.nextElementSibling.classList.remove('open');
+    });
+    if (!isOpen) {
+      el.classList.add('open');
+      answer.classList.add('open');
+    }
+  }
+
+  // ── Gallery lightbox ──
+  const galleryImgs = Array.from(document.querySelectorAll('.gallery-item img')).map(i => i.src);
+  let lbIndex = 0;
+  function openLightbox(i) {
+    lbIndex = i;
+    document.getElementById('lbImg').src = galleryImgs[i];
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function lbPrev() { lbIndex = (lbIndex - 1 + galleryImgs.length) % galleryImgs.length; document.getElementById('lbImg').src = galleryImgs[lbIndex]; }
+  function lbNext() { lbIndex = (lbIndex + 1) % galleryImgs.length; document.getElementById('lbImg').src = galleryImgs[lbIndex]; }
+  document.getElementById('lightbox').addEventListener('click', e => { if (e.target === e.currentTarget) closeLightbox(); });
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') lbPrev();
+    if (e.key === 'ArrowRight') lbNext();
+  });
+
+  // ── Product tabs ──
+  function switchTab(tab, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.prod-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // ── Product "Get a Quote" pre-fills the dropdown ──
+  document.querySelectorAll('[data-product]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      const product = btn.getAttribute('data-product');
+      const select = document.getElementById('interest');
+      if (select) {
+        for (let opt of select.options) {
+          if (opt.value === product) { select.value = product; break; }
+        }
+      }
+    });
+  });
+
+  // ── Quote form submit ──
+  function submitForm(e) {
+    e.preventDefault();
+    document.getElementById('formContent').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  }
+</script>
+</body>
+</html>
