@@ -1,6 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
+const { Resend } = require('resend');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -43,6 +44,40 @@ app.post('/api/login', (req, res) => {
     res.json({ token: sessionToken });
   } else {
     res.status(401).json({ error: 'Wrong password' });
+  }
+});
+
+app.post('/api/quote', async (req, res) => {
+  const { firstName, lastName, phone, email, city, interest, message } = req.body || {};
+  if (!firstName || !phone) return res.status(400).json({ error: 'Missing required fields' });
+
+  if (!process.env.RESEND_API_KEY) {
+    console.log('Quote submission (no email key set):', req.body);
+    return res.json({ ok: true });
+  }
+
+  const resend = new Resend(process.env.RESEND_API_KEY);
+  try {
+    await resend.emails.send({
+      from: 'quotes@honestwaternfl.com',
+      to: 'info@honestwaternfl.com',
+      subject: `New Quote Request — ${firstName} ${lastName} (${city || 'Unknown area'})`,
+      html: `
+        <h2>New Quote Request</h2>
+        <table style="border-collapse:collapse;width:100%;max-width:500px">
+          <tr><td style="padding:8px;font-weight:bold">Name</td><td style="padding:8px">${firstName} ${lastName}</td></tr>
+          <tr style="background:#f5f5f5"><td style="padding:8px;font-weight:bold">Phone</td><td style="padding:8px"><a href="tel:${phone}">${phone}</a></td></tr>
+          <tr><td style="padding:8px;font-weight:bold">Email</td><td style="padding:8px">${email || '—'}</td></tr>
+          <tr style="background:#f5f5f5"><td style="padding:8px;font-weight:bold">City / Zip</td><td style="padding:8px">${city || '—'}</td></tr>
+          <tr><td style="padding:8px;font-weight:bold">Interested In</td><td style="padding:8px">${interest || '—'}</td></tr>
+          <tr style="background:#f5f5f5"><td style="padding:8px;font-weight:bold">Message</td><td style="padding:8px">${message || '—'}</td></tr>
+        </table>
+      `,
+    });
+    res.json({ ok: true });
+  } catch (e) {
+    console.error('Email error:', e);
+    res.status(500).json({ error: 'Failed to send email' });
   }
 });
 

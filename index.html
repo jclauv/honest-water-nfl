@@ -1495,10 +1495,34 @@
   });
 
   // ── Quote form submit ──
-  function submitForm(e) {
+  async function submitForm(e) {
     e.preventDefault();
-    document.getElementById('formContent').style.display = 'none';
-    document.getElementById('formSuccess').style.display = 'block';
+    const btn = e.target.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    try {
+      const res = await fetch('/api/quote', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstName: document.getElementById('firstName').value,
+          lastName:  document.getElementById('lastName').value,
+          phone:     document.getElementById('phone').value,
+          email:     document.getElementById('email').value,
+          city:      document.getElementById('city').value,
+          interest:  document.getElementById('interest').value,
+          message:   document.getElementById('message').value,
+        }),
+      });
+      const data = await res.json();
+      if (!data.ok) throw new Error(data.error || 'Unknown error');
+      document.getElementById('formContent').style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+    } catch (err) {
+      btn.disabled = false;
+      btn.textContent = 'Send Quote Request →';
+      alert('Something went wrong — please call us at (407) 972-1262');
+    }
   }
 </script>
 </body>
