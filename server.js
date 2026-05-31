@@ -5,8 +5,19 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3001;
 const DIR = __dirname;
-const CONTENT_FILE = path.join(DIR, 'content.json');
-const ADMIN_PASS = process.env.ADMIN_PASS || 'hwcnfl2026'; // set ADMIN_PASS env var on your host
+const ADMIN_PASS = process.env.ADMIN_PASS || 'hwcnfl2026';
+
+// In production on Render, persist content.json to the mounted disk at /data
+const DATA_DIR = process.env.NODE_ENV === 'production' ? '/data' : DIR;
+const CONTENT_FILE = path.join(DATA_DIR, 'content.json');
+const BUNDLED_CONTENT = path.join(DIR, 'content.json');
+
+// On first boot, copy bundled content.json to the persistent disk if it doesn't exist
+if (process.env.NODE_ENV === 'production' && !fs.existsSync(CONTENT_FILE)) {
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+  fs.copyFileSync(BUNDLED_CONTENT, CONTENT_FILE);
+  console.log('Initialized content.json on persistent disk');
+}
 
 let sessionToken = null;
 

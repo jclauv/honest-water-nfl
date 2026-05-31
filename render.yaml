@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: honest-water-nfl
+    runtime: node
+    buildCommand: npm install
+    startCommand: node server.js
+    plan: starter
+    disk:
+      name: content-data
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: ADMIN_PASS
+        generateValue: false
+        value: hwcnfl2026
+      - key: NODE_ENV
+        value: production
