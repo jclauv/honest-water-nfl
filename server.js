@@ -59,7 +59,7 @@ app.post('/api/quote', async (req, res) => {
   const resend = new Resend(process.env.RESEND_API_KEY);
   try {
     await resend.emails.send({
-      from: 'quotes@honestwaternfl.com',
+      from: 'quotes@updates.honestwaternfl.com',
       to: 'info@honestwaternfl.com',
       subject: `New Quote Request — ${firstName} ${lastName} (${city || 'Unknown area'})`,
       html: `
